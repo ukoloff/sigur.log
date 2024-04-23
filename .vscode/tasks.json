@@ -9,10 +9,15 @@
       "command": "pscp",
       "args": [
         "-r",
+        "-q",
         "./nc.ekb.ru/omz/service/sigur",
         "root@10.33.10.104:/var/www/ssl:ekb.ru/omz/service/"
       ],
-      "problemMatcher": []
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
