@@ -1,0 +1,18 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Push changes to WWW",
+      "type": "shell",
+      "command": "pscp",
+      "args": [
+        "-r",
+        "./nc.ekb.ru/omz/service/sigur",
+        "root@10.33.10.104:/var/www/ssl:ekb.ru/omz/service/"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
