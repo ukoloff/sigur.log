@@ -15,8 +15,8 @@ function rSync() {
   function run(resolve, reject) {
     cp.spawn('rsync', [
       '-e',
-      path.join(os.homedir(),
-        'scoop/apps/cwrsync/current/bin/ssh.exe -o HostKeyAlgorithms=+ssh-dss -o PubkeyAcceptedKeyTypes=+ssh-rsa'),
+      path.join(os.homedir(), 'scoop/apps/cwrsync/current/bin/ssh.exe') +
+      ' -o HostKeyAlgorithms=+ssh-dss -o PubkeyAcceptedKeyTypes=+ssh-rsa',
       '-r',
       '--chmod=o+rx',
       '--delete',
