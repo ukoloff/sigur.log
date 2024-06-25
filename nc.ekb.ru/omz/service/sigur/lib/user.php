@@ -1,6 +1,6 @@
 <?
 global $CFG;
-LoadLib('../../dc/db/sigur.connect');
+LoadLib('/dc/db/sigur.connect');
 $h = $CFG->sigur;
 unset($CFG->sigur);
 $CFG->sigur->h = $h;
