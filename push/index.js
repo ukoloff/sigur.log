@@ -1,3 +1,4 @@
+const os = require('node:os')
 const path = require('node:path')
 const cp = require('node:child_process')
 
@@ -7,9 +8,10 @@ function rSync() {
   return new Promise(run)
 
   function run(resolve, reject) {
-    var z = cp.spawn('rsync', [
+    cp.spawn('rsync', [
       '-e',
-      'C:\\Users\\s.ukolov\\scoop\\apps\\cwrsync\\6.3.0\\bin\\ssh.exe -o HostKeyAlgorithms=+ssh-dss -o PubkeyAcceptedKeyTypes=+ssh-rsa',
+      path.join(os.homedir(),
+        'scoop/apps/cwrsync/current/bin/ssh.exe -o HostKeyAlgorithms=+ssh-dss -o PubkeyAcceptedKeyTypes=+ssh-rsa'),
       '-a',
       '--delete',
       'sigur',
