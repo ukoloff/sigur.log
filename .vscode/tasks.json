@@ -6,12 +6,9 @@
     {
       "label": "Push changes to WWW",
       "type": "shell",
-      "command": "pscp",
+      "command": "node",
       "args": [
-        "-r",
-        "-q",
-        "./nc.ekb.ru/omz/service/sigur",
-        "root@10.33.10.104:/var/www/ssl:ekb.ru/omz/service/"
+        "push"
       ],
       "problemMatcher": [],
       "group": {
