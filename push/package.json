@@ -1,0 +1,15 @@
+{
+  "name": "push",
+  "version": "1.0.0",
+  "description": "Synchronize Windows folder *to* (outdated) Linux host",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^3.6.0"
+  }
+}
