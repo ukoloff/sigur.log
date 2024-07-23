@@ -39,5 +39,15 @@ foreach ($idx as $k=>$v):
   if (!$p) $p = $root;
   $p->ch[] = $v;
 endforeach;
+
+function count_children($dept) {
+  $res = 0;
+  foreach ($dept->ch as $k=>$v):
+    $res += count_children($v) + 1;
+  endforeach;
+  return $dept->count = $res;
+}
+count_children($root);
+
 echo "<pre>";
 print_r($root);
