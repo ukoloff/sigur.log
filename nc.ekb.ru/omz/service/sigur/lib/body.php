@@ -9,4 +9,6 @@ $s = $CFG->sigur->h->prepare('Select NAME From personal Where ID = ?');
 $s->execute(array($CFG->sigur->uid));
 $row = $s->fetch();
 echo htmlspecialchars($row[0]);
+
+LoadLib('./depts');
 ?>
