@@ -1,6 +1,5 @@
 <?php // Load Departments...
-$s = $CFG->sigur->h->prepare(
-  <<<SQL
+$s = $CFG->sigur->h->prepare(<<<SQL
   select
     ID as id,
     PARENT_ID as pid,
@@ -35,7 +34,6 @@ endwhile;
 unset($root);
 $root->ch = Array();
 foreach ($idx as $k=>$v):
-  // print_r($v);
   $pid = $v->pid;
   $p = $idx->$pid;
   if (!$p) $p = $root;
@@ -51,6 +49,34 @@ function count_children($dept) {
   return $dept->count = $res;
 }
 count_children($root);
+
+// Достанем отделы пользователя
+$s = $CFG->sigur->h->prepare(<<<SQL
+  select
+      EMP_ID
+  from
+      reportuserdep
+  where
+      USER_ID = ?
+SQL
+);
+$s->execute(array($CFG->sigur->uid));
+while ($row = $s->fetch()):
+  $id = $row[0];
+  if ($idx->$id) $idx->$id->view = 1; // Пометили, что заказан просмотр подразделения
+endwhile;
+
+function count_views($dept) {
+  $res = 0;
+  foreach ($dept->ch as $k=>$v):
+    $res += count_views($v);
+    if ($v->view) $dept->view = 1;
+  endforeach;
+  $dept->vcount = $res;
+  if ($dept->view) $res++;
+  return $res;
+}
+count_views($root);
 
 doDebug();
 echo "<pre>";
