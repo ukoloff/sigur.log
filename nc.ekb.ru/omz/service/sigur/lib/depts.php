@@ -19,6 +19,7 @@ $s = $CFG->sigur->h->prepare(
   where
     type = 'DEP'
     and STATUS = 'AVAILABLE'
+  order by name
 SQL
 );
 $s->execute();
@@ -28,6 +29,7 @@ unset($idx);
 while ($row = $s->fetch(PDO::FETCH_OBJ)) :
   $key = $row->id;
   $idx->$key = $row;
+  $row->count = 0;
   $row->ch = Array();
 endwhile;
 unset($root);
@@ -44,6 +46,7 @@ function count_children($dept) {
   $res = 0;
   foreach ($dept->ch as $k=>$v):
     $res += count_children($v) + 1;
+    if ($v->Z) $dept->Z = 1;
   endforeach;
   return $dept->count = $res;
 }
