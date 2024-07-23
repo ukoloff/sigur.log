@@ -41,4 +41,4 @@ function sigurUID($u = '')
   return sigur_UID($u);
 }
 
-echo $CFG->sigur->uid = sigurUID();
+$CFG->sigur->uid = sigurUID();
