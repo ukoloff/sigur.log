@@ -32,13 +32,13 @@ SQL
 function sigurUID($u = '')
 {
   global $CFG;
-  if (!$u) {
-    $u = $CFG->u;
-  }
-  $n = sigur_UID($u);
-  if ($n) return $n;
-  if (!preg_match('/\D1$/', $u)) return;
-  return sigur_UID(substr($u, 0, -1));
+  if (!$u) $u = $CFG->u;
+
+  if (substr($u, -1) == '1') :
+    $n = sigur_UID(substr($u, 0, -1));
+    if ($n) return $n;
+  endif;
+  return sigur_UID($u);
 }
 
-$CFG->sigur->uid = sigurUID();
+echo $CFG->sigur->uid = sigurUID();
