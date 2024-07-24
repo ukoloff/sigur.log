@@ -30,7 +30,7 @@ function d2s($date) {
     По дату
     <input type='date' name='dZ' required value='<?= d2s($d) ?>' />
   </label>
-  <input type='submit' value=' Отправить! ' />
+  <input type='submit' value=' Сформировать отчёт! ' />
   <fieldset>
     <legend>Подразделения (<span></span>)</legend>
     <?
