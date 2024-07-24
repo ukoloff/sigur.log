@@ -112,7 +112,7 @@ for ($d = $root; count($d->ch) == 1; $d = $d->ch[0]) $d->expanded = 1;
 
 if ($root->avail == 1)
   foreach ($idx as $d)
-    if ($d->view && !$d->ro):
+    if ($d->view && !$d->ro) :
       $d->checked = 1;
       break;
     endif;
@@ -123,15 +123,15 @@ function out_dept($dept)
 {
   foreach ($dept->ch as $d) :
     $collapse = !$d->expanded && count($d->ch);
-    echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-' ,'</a>',
-      '<label><input type=checkbox',
-      $d->ro ? ' disabled' : '',
-      $d->checked ? ' checked' : '',
-      ">\n",
-      htmlspecialchars($d->name),
-      "</label>\n";
-    if (count($d->ch)):
-      echo '<div class="Q', $collapse ? ' hide' : '', '" id=/', $d->id,'>';
+    echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-', '</a>',
+    '<label><input type=checkbox id=%', $d->id,
+    $d->ro ? ' disabled' : '',
+    $d->checked ? ' checked' : '',
+    ">\n",
+    htmlspecialchars($d->name),
+    "</label>\n";
+    if (count($d->ch)) :
+      echo '<div class="Q', $collapse ? ' hide' : '', '" id=/', $d->id, '>';
       out_dept($d);
       echo "</div>";
     endif;

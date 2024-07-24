@@ -5,21 +5,43 @@ setTimeout(function () {
 
 function clicker(ev) {
   var el = ev.srcElement
-  if (el.tagName == 'A' && el.className == 'Q') {
-    ev.preventDefault()
-    clickExpander(el)
+  switch (el.tagName) {
+    case 'A':
+      switch (el.className) {
+        case 'Q':
+          ev.preventDefault()
+          return clickExpander(el)
+      }
+    case 'INPUT':
+      switch (el.type) {
+        case 'checkbox':
+          return clickCB(el)
+      }
   }
 }
 
-function clickExpander(el) {
-  el.blur()
-  var div = document.getElementById(el.id.replace(':', '/'))
+function clickExpander(a) {
+  a.blur()
+  var div = document.getElementById(a.id.replace(':', '/'))
   if (!div) return
-  if (el.innerText == '+') {
-    el.innerText = '-'
+  if (a.innerText == '+') {
+    a.innerText = '-'
     div.classList.remove('hide')
   } else {
-    el.innerText = '+'
+    a.innerText = '+'
     div.classList.add('hide')
   }
+}
+
+function clickCB(cb) {
+  cb.blur()
+  var div = document.getElementById(cb.id.replace('%', '/'))
+  if (!div) return
+  var cbs = div.getElementsByTagName('input')
+  for (var i = cbs.length - 1; i >= 0; i--) {
+    var z = cbs[i]
+    if (z.disabled) continue
+    z.checked = cb.checked
+  }
+
 }
