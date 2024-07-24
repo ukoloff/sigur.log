@@ -13,6 +13,14 @@ echo htmlspecialchars($row[0]);
 
 ?>
 <form method='POST' target='inner'>
+  <label>
+    С даты
+    <input type='date' name='dA' required />
+  </label>
+  <label>
+    По дату
+    <input type='date' name='dZ' required />
+  </label>
   <input type='submit' value=' Отправить! ' />
   <?
   LoadLib('./depts');
