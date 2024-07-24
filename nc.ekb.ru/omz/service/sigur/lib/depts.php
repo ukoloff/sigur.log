@@ -1,5 +1,6 @@
 <?php // Load Departments...
-$s = $CFG->sigur->h->prepare(<<<SQL
+$s = $CFG->sigur->h->prepare(
+  <<<SQL
   select
     ID as id,
     PARENT_ID as pid,
@@ -29,20 +30,21 @@ while ($row = $s->fetch(PDO::FETCH_OBJ)) :
   $key = $row->id;
   $idx->$key = $row;
   $row->count = 0;  // Количество всех потомков
-  $row->ch = Array();
+  $row->ch = array();
 endwhile;
 unset($root);
-$root->ch = Array();
-foreach ($idx as $k=>$v):
+$root->ch = array();
+foreach ($idx as $k => $v) :
   $pid = $v->pid;
   $p = $idx->$pid;
   if (!$p) $p = $root;
   $p->ch[] = $v;
 endforeach;
 
-function count_children($dept) {
+function count_children($dept)
+{
   $res = 0;
-  foreach ($dept->ch as $k=>$v):
+  foreach ($dept->ch as $k => $v) :
     $res += count_children($v) + 1;
     if ($v->Z) $dept->Z = 1;  // В подразделении вообще есть проходы
   endforeach;
@@ -51,7 +53,8 @@ function count_children($dept) {
 count_children($root);
 
 // Достанем отделы пользователя
-$s = $CFG->sigur->h->prepare(<<<SQL
+$s = $CFG->sigur->h->prepare(
+  <<<SQL
   select
       EMP_ID
   from
@@ -61,14 +64,15 @@ $s = $CFG->sigur->h->prepare(<<<SQL
 SQL
 );
 $s->execute(array($CFG->sigur->uid));
-while ($row = $s->fetch()):
+while ($row = $s->fetch()) :
   $id = $row[0];
   if ($idx->$id) $idx->$id->view = 1; // Пометили, что заказан просмотр подразделения
 endwhile;
 
-function count_views($dept) {
+function count_views($dept)
+{
   $res = 0;
-  foreach ($dept->ch as $k=>$v):
+  foreach ($dept->ch as $k => $v) :
     $res += count_views($v);
     if ($v->view) $dept->view = 1;
   endforeach;
@@ -78,15 +82,16 @@ function count_views($dept) {
 }
 count_views($root);
 
-if (!$root->vcount):
-  foreach ($idx as $k=>$v):
-    if($v->Z) $v->view = 1;
+if (!$root->vcount) :
+  foreach ($idx as $k => $v) :
+    if ($v->Z) $v->view = 1;
   endforeach;
   count_views($root);
 endif;
 
-function drop_depts($dept) {
-  $dept->ch = array_values(array_filter($dept->ch, function($v, $k){
+function drop_depts($dept)
+{
+  $dept->ch = array_values(array_filter($dept->ch, function ($v, $k) {
     if (!$v->view) return;
     drop_depts(($v));
     return 1;
@@ -96,13 +101,31 @@ drop_depts($root);
 
 // Пометим подразделения, которые невозможно будет выбрать
 $root->avail = $root->vcount;
-foreach ($idx as $k=>$v):
-  if(!$v->view) continue;
+foreach ($idx as $k => $v) :
+  if (!$v->view) continue;
   $v->ro = !$v->Z || $v->vcount && $v->vcount != $v->count;
   if ($v->ro) $root->avail--;
 endforeach;
 
+echo "<div id='/*'>";
 
-// doDebug();
-echo "<pre>";
-print_r($root);
+function out_dept($dept)
+{
+  foreach ($dept->ch as $d) :
+    echo '<div><a class=Q href=#>+</a> ',
+      '<label><input type=checkbox',
+      $d->ro ? ' disabled' : '',
+      '> ',
+      htmlspecialchars($d->name),
+      '</label>';
+    if (count($d->ch)):
+      echo "<div class=Q>";
+      out_dept($d);
+      echo "</div>\n";
+    endif;
+    echo "</div>\n";
+  endforeach;
+}
+out_dept($root);
+?>
+</div>

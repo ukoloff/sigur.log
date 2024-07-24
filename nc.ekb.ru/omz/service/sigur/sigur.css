@@ -1,0 +1,13 @@
+a.Q {
+  background: silver;
+  border: solid 1px black;
+  font-family: monospace;
+  text-decoration: none;
+  font-size: 70%;
+  padding: 0 0.62ex;
+}
+
+div.Q {
+  /* display: none; */
+  padding-left: 2em;
+}
