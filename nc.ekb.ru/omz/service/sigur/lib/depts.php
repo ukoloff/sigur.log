@@ -107,12 +107,15 @@ foreach ($idx as $k => $v) :
   if ($v->ro) $root->avail--;
 endforeach;
 
+// Раскроем корневые департаменты
+for ($d = $root; count($d->ch) == 1; $d = $d->ch[0]) $d->expanded = 1;
+
 echo "\n<div id='/*'>\n";
 
 function out_dept($dept)
 {
   foreach ($dept->ch as $d) :
-    $collapse = count($d->ch) > 1;
+    $collapse = !$d->expanded && count($d->ch);
     echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-' ,'</a>',
       '<label><input type=checkbox',
       $d->ro ? ' disabled' : '',
