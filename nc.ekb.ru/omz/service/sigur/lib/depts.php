@@ -78,6 +78,13 @@ function count_views($dept) {
 }
 count_views($root);
 
+if (!$root->vcount):
+  foreach ($idx as $k=>$v):
+    if($v->Z) $v->view = 1;
+  endforeach;
+  count_views($root);
+endif;
+
 doDebug();
 echo "<pre>";
 print_r($root);
