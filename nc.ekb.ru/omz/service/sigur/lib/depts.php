@@ -85,6 +85,24 @@ if (!$root->vcount):
   count_views($root);
 endif;
 
-doDebug();
+function drop_depts($dept) {
+  $dept->ch = array_values(array_filter($dept->ch, function($v, $k){
+    if (!$v->view) return;
+    drop_depts(($v));
+    return 1;
+  }));
+}
+drop_depts($root);
+
+// Пометим подразделения, которые невозможно будет выбрать
+$root->avail = $root->vcount;
+foreach ($idx as $k=>$v):
+  if(!$v->view) continue;
+  $v->ro = !$v->Z || $v->vcount && $v->vcount != $v->count;
+  if ($v->ro) $root->avail--;
+endforeach;
+
+
+// doDebug();
 echo "<pre>";
 print_r($root);
