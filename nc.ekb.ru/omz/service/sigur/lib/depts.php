@@ -123,7 +123,6 @@ SQL
       endif;
   return $root;
 }
-$root = loadDepts();
 
 function renderDepts($root)
 {
@@ -134,7 +133,7 @@ function renderDepts($root)
     foreach ($dept->ch as $d) :
       $collapse = !$d->expanded && count($d->ch);
       echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-', '</a>',
-      '<label><input type=checkbox id=%', $d->id,
+      '<label><input type=checkbox name=?', $d->id,
       $d->ro ? ' disabled' : '',
       $d->checked ? ' checked' : '',
       ">\n",
@@ -152,4 +151,3 @@ function renderDepts($root)
   echo "</div>";
 }
 
-renderDepts($root);

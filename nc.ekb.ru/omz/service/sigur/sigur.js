@@ -12,6 +12,7 @@ function clicker(ev) {
           ev.preventDefault()
           return clickExpander(el)
       }
+      break
     case 'INPUT':
       switch (el.type) {
         case 'checkbox':
@@ -35,7 +36,7 @@ function clickExpander(a) {
 
 function clickCB(cb) {
   cb.blur()
-  var div = document.getElementById(cb.id.replace('%', '/'))
+  var div = document.getElementById(cb.name.replace('?', '/'))
   if (!div) return
   var cbs = div.getElementsByTagName('input')
   for (var i = cbs.length - 1; i >= 0; i--) {
