@@ -19,3 +19,7 @@ div#\/\* input[type=checkbox] {
   position: relative;
   top: 0.4ex;
 }
+
+iframe {
+  display: none;
+}

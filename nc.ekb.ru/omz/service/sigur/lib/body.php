@@ -11,8 +11,12 @@ $s->execute(array($CFG->sigur->uid));
 $row = $s->fetch();
 echo htmlspecialchars($row[0]);
 
-echo "<form>";
-LoadLib('./depts');
-renderDepts(loadDepts());
-echo "</form>"
 ?>
+<form method='POST' target='inner'>
+  <input type='submit' value=' Отправить! ' />
+  <?
+  LoadLib('./depts');
+  renderDepts(loadDepts());
+  ?>
+</form>
+<iframe name=inner></iframe>
