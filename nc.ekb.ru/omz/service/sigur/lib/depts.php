@@ -3,6 +3,11 @@
 function loadDepts()
 {
   global $CFG;
+  $root = (object) null;
+  $root->ch = array();
+  if (!$CFG->sigur->uid)
+    return;
+
   $s = $CFG->sigur->h->prepare(
     <<<SQL
       select
@@ -37,8 +42,6 @@ SQL
     $row->ch = array();
   endwhile;
 
-  $root = (object) null;
-  $root->ch = array();
   foreach ($idx as $k => $v):
     $pid = $v->pid;
     $p = $idx->$pid;
