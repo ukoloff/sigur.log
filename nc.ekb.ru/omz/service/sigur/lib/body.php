@@ -1,3 +1,4 @@
+<script src=sigur.js></script>
 <?
 global $CFG;
 LoadLib('./user');

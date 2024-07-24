@@ -112,14 +112,15 @@ echo "\n<div id='/*'>\n";
 function out_dept($dept)
 {
   foreach ($dept->ch as $d) :
-    echo '<div><a class=Q href=#>+</a>',
+    $collapse = count($d->ch) > 1;
+    echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-' ,'</a>',
       '<label><input type=checkbox',
       $d->ro ? ' disabled' : '',
       ">\n",
       htmlspecialchars($d->name),
       "</label>\n";
     if (count($d->ch)):
-      echo '<div class=Q id=/', $d->id,'>';
+      echo '<div class="Q', $collapse ? ' hide' : '', '" id=/', $d->id,'>';
       out_dept($d);
       echo "</div>";
     endif;

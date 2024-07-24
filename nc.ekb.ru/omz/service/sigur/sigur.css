@@ -8,11 +8,14 @@ a.Q {
 }
 
 div.Q {
-  /* display: none; */
   padding-left: 2em;
 }
 
-div.Q input[type=checkbox] {
+div.Q.hide {
+  display: none;
+}
+
+div#\/\* input[type=checkbox] {
   position: relative;
   top: 0.4ex;
 }
