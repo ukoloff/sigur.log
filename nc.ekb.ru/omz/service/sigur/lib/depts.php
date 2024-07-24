@@ -29,29 +29,31 @@ SQL
   $s->execute();
 
   // doDebug();
-  $idx = (object)null;
-  while ($row = $s->fetch(PDO::FETCH_OBJ)) :
+  $idx = (object) null;
+  while ($row = $s->fetch(PDO::FETCH_OBJ)):
     $key = $row->id;
     $idx->$key = $row;
     $row->count = 0;  // Количество всех потомков
     $row->ch = array();
   endwhile;
 
-  $root = (object)null;
+  $root = (object) null;
   $root->ch = array();
-  foreach ($idx as $k => $v) :
+  foreach ($idx as $k => $v):
     $pid = $v->pid;
     $p = $idx->$pid;
-    if (!$p) $p = $root;
+    if (!$p)
+      $p = $root;
     $p->ch[] = $v;
   endforeach;
 
   function count_children($dept)
   {
     $res = 0;
-    foreach ($dept->ch as $k => $v) :
+    foreach ($dept->ch as $k => $v):
       $res += count_children($v) + 1;
-      if ($v->Z) $dept->Z = 1;  // В подразделении вообще есть проходы
+      if ($v->Z)
+        $dept->Z = 1;  // В подразделении вообще есть проходы
     endforeach;
     return $dept->count = $res;
   }
@@ -69,27 +71,31 @@ SQL
 SQL
   );
   $s->execute(array($CFG->sigur->uid));
-  while ($row = $s->fetch()) :
+  while ($row = $s->fetch()):
     $id = $row[0];
-    if ($idx->$id) $idx->$id->view = 1; // Пометили, что заказан просмотр подразделения
+    if ($idx->$id)
+      $idx->$id->view = 1; // Пометили, что заказан просмотр подразделения
   endwhile;
 
   function count_views($dept)
   {
     $res = 0;
-    foreach ($dept->ch as $k => $v) :
+    foreach ($dept->ch as $k => $v):
       $res += count_views($v);
-      if ($v->view) $dept->view = 1;
+      if ($v->view)
+        $dept->view = 1;
     endforeach;
     $dept->vcount = $res;
-    if ($dept->view) $res++;
+    if ($dept->view)
+      $res++;
     return $res;
   }
   count_views($root);
 
-  if (!$root->vcount) :
-    foreach ($idx as $k => $v) :
-      if ($v->Z) $v->view = 1;
+  if (!$root->vcount):
+    foreach ($idx as $k => $v):
+      if ($v->Z)
+        $v->view = 1;
     endforeach;
     count_views($root);
   endif;
@@ -97,7 +103,8 @@ SQL
   function drop_depts($dept)
   {
     $dept->ch = array_values(array_filter($dept->ch, function ($v, $k) {
-      if (!$v->view) return;
+      if (!$v->view)
+        return;
       drop_depts(($v));
       return 1;
     }));
@@ -106,18 +113,21 @@ SQL
 
   // Пометим подразделения, которые невозможно будет выбрать
   $root->avail = $root->vcount;
-  foreach ($idx as $k => $v) :
-    if (!$v->view) continue;
+  foreach ($idx as $k => $v):
+    if (!$v->view)
+      continue;
     $v->ro = !$v->Z || $v->vcount && $v->vcount != $v->count;
-    if ($v->ro) $root->avail--;
+    if ($v->ro)
+      $root->avail--;
   endforeach;
 
   // Раскроем корневые департаменты
-  for ($d = $root; count($d->ch) == 1; $d = $d->ch[0]) $d->expanded = 1;
+  for ($d = $root; count($d->ch) == 1; $d = $d->ch[0])
+    $d->expanded = 1;
 
   if ($root->avail == 1)
     foreach ($idx as $d)
-      if ($d->view && !$d->ro) :
+      if ($d->view && !$d->ro):
         $d->checked = 1;
         break;
       endif;
@@ -130,16 +140,16 @@ function renderDepts($root)
 
   function out_dept($dept)
   {
-    foreach ($dept->ch as $d) :
+    foreach ($dept->ch as $d):
       $collapse = !$d->expanded && count($d->ch);
       echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-', '</a>',
-      '<label><input type=checkbox name=?', $d->id,
-      $d->ro ? ' disabled' : '',
-      $d->checked ? ' checked' : '',
-      ">\n",
-      htmlspecialchars($d->name),
-      "</label>\n";
-      if (count($d->ch)) :
+        '<label><input type=checkbox name=?', $d->id,
+        $d->ro ? ' disabled' : '',
+        $d->checked ? ' checked' : '',
+        ">\n",
+        htmlspecialchars($d->name),
+        "</label>\n";
+      if (count($d->ch)):
         echo '<div class="Q', $collapse ? ' hide' : '', '" id=/', $d->id, '>';
         out_dept($d);
         echo "</div>";
@@ -150,4 +160,3 @@ function renderDepts($root)
   out_dept($root);
   echo "</div>";
 }
-

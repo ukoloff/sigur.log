@@ -8,7 +8,8 @@ $CFG->sigur->h = $h;
 function sigur_UID($u = '')
 {
   global $CFG;
-  if (!$u) $u = $CFG->u;
+  if (!$u)
+    $u = $CFG->u;
   $g = getEntry(user2dn($u), 'objectguid');
   $g = bin2hex($g['objectguid'][0]);
 
@@ -25,18 +26,21 @@ SQL
   );
   $s->execute(array($g));
   $row = $s->fetch();
-  if (!$row) return;
+  if (!$row)
+    return;
   return $row[0];
 }
 
 function sigurUID($u = '')
 {
   global $CFG;
-  if (!$u) $u = $CFG->u;
+  if (!$u)
+    $u = $CFG->u;
 
-  if (substr($u, -1) == '1') :
+  if (substr($u, -1) == '1'):
     $n = sigur_UID(substr($u, 0, -1));
-    if ($n) return $n;
+    if ($n)
+      return $n;
   endif;
   return sigur_UID($u);
 }
