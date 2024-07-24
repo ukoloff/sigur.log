@@ -107,23 +107,23 @@ foreach ($idx as $k => $v) :
   if ($v->ro) $root->avail--;
 endforeach;
 
-echo "<div id='/*'>";
+echo "\n<div id='/*'>\n";
 
 function out_dept($dept)
 {
   foreach ($dept->ch as $d) :
-    echo '<div><a class=Q href=#>+</a> ',
+    echo '<div><a class=Q href=#>+</a>',
       '<label><input type=checkbox',
       $d->ro ? ' disabled' : '',
-      '> ',
+      ">\n",
       htmlspecialchars($d->name),
-      '</label>';
+      "</label>\n";
     if (count($d->ch)):
-      echo "<div class=Q>";
+      echo '<div class=Q id=/', $d->id,'>';
       out_dept($d);
-      echo "</div>\n";
+      echo "</div>";
     endif;
-    echo "</div>\n";
+    echo "</div>";
   endforeach;
 }
 out_dept($root);
