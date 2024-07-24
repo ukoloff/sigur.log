@@ -110,6 +110,13 @@ endforeach;
 // Раскроем корневые департаменты
 for ($d = $root; count($d->ch) == 1; $d = $d->ch[0]) $d->expanded = 1;
 
+if ($root->avail == 1)
+  foreach ($idx as $d)
+    if ($d->view && !$d->ro):
+      $d->checked = 1;
+      break;
+    endif;
+
 echo "\n<div id='/*'>\n";
 
 function out_dept($dept)
@@ -119,6 +126,7 @@ function out_dept($dept)
     echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-' ,'</a>',
       '<label><input type=checkbox',
       $d->ro ? ' disabled' : '',
+      $d->checked ? ' checked' : '',
       ">\n",
       htmlspecialchars($d->name),
       "</label>\n";
