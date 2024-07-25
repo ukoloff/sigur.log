@@ -1,4 +1,4 @@
 <?
-$CFG->title='Ёкспорт из Sigur';
-$CFG->AAA=1;
-?>
+$CFG->title = 'Ёкспорт из Sigur';
+$CFG->AAA = 1;
+
