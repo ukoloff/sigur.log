@@ -1,6 +1,13 @@
-<script src=sigur.js></script>
 <?
 global $CFG;
+
+function renderScript($js) {
+  $d = getdate(filemtime(dirname(__FILE__).'/../'.$js));
+  $d = $d['seconds'];
+  echo "<script src=$js?$d></script>";
+}
+renderScript('sigur.js');
+
 LoadLib('./user');
 ?>
 <i>Пользователь Сигур</i>:
@@ -40,24 +47,24 @@ $dates = $s->fetchObject();
 $minmax = "min=$dates->min max=$dates->max";
 
 ?>
-<form method='POST' target='inner'>
+<form method='POST' x-target='inner'>
   <table cellspacing="0">
     <tr>
       <td align="right">
-          <label>
-            С
-            <input type='date' name='dA' <?= $minmax ?> required value='<?= $d1 ?>' />
-          </label>
-          <br />
-          <label>
-            По
-            <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
-          </label>
+        <label>
+          С
+          <input type='date' name='dA' <?= $minmax ?> required value='<?= $d1 ?>' />
+        </label>
+        <br />
+        <label>
+          По
+          <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
+        </label>
       </td>
       <td width="30%">
         <label>
           <input type="radio" name="format" value="xls" checked>
-          XLS
+          XLS<sup title="См. примечание внизу страницы">*</sup>
         </label>
         <br />
         <label>
@@ -84,3 +91,10 @@ $minmax = "min=$dates->min max=$dates->max";
   </fieldset>
 </form>
 <iframe name=inner></iframe>
+
+<small>
+  <sup>*</sup>
+  Современные версии Microsoft Excel предупреждают,
+  что полученный XLS-файл возможно повреждён,
+  тем не менее, открывают его нормально.
+</small>

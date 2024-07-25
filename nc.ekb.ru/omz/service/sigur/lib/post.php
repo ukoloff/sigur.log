@@ -2,17 +2,7 @@
 LoadLib('./user');
 LoadLib('./depts');
 
-function index_dept($dept, $idx)
-{
-  foreach ($dept->ch as $d):
-    $id = $d->id;
-    $idx->$id = 1;
-    index_dept($d, $idx);
-  endforeach;
-}
-
-$idx = (object) null;
-index_dept(loadDepts(), $idx);
+$idx = index_depts(loadDepts());
 
 $depts = array();
 foreach ($_POST as $k => $v):
@@ -49,9 +39,9 @@ $s = $CFG->sigur->h->prepare(<<<SQL
   )
   select
     D.NAME as "Îòäåë",
+    U.POS as "Äîëæíîñòü",
     U.NAME as "ÔÈÎ",
     U.TABID as "Òàá. ¹",
-    U.POS as "Äîëæíîñòü",
     cast(L.LOGTIME as date) as "Äàòà",
     cast(L.LOGTIME as time) as "Âğåìÿ",
     Dv.NAME as "Ò. äîñòóïà",
