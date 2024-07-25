@@ -1,6 +1,13 @@
-<script src=sigur.js></script>
 <?
 global $CFG;
+
+function renderScript($js) {
+  $d = getdate(filemtime(dirname(__FILE__).'/../'.$js));
+  $d = $d['seconds'];
+  echo "<script src=$js?$d></script>";
+}
+renderScript('sigur.js');
+
 LoadLib('./user');
 ?>
 <i>Пользователь Сигур</i>:
