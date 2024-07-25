@@ -39,7 +39,7 @@ if ($dZ < $dA):
   $dA = $tmp;
 endif;
 
-$s = $CFG->sigur->h->prepare($sql = <<<SQL
+$s = $CFG->sigur->h->prepare(<<<SQL
   with Logs as (
     select
       *,
@@ -77,6 +77,16 @@ SQL
 );
 $s->execute(array($dA, $dZ));
 $CFG->sigur->data = $s;
-LoadLib('xls');
+
+$formats = explode(':', 'xls:csv');
+$format = $_POST['format'];
+if (!in_array($format, $formats))
+  $format = $formats[0];
+
+$t = new DateTime();
+$t = $t->format('Y-m-d-H-i-s');
+header("Content-disposition: attachment; filename=\"sigur-$t.$format\"");
+
+LoadLib($format);
 exit();
 ?>

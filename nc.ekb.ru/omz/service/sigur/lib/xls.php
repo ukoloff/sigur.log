@@ -1,9 +1,5 @@
 <?
-$rows = 0;
-$t = new DateTime();
-$t = $t->format('Y-m-d-H-i-s');
 header("Content-Type: application/vnd.ms-excel");
-header("Content-disposition: attachment; filename=\"sigur-$t.xls\"");
 ?>
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns="http://www.w3.org/TR/REC-html40">
@@ -28,6 +24,7 @@ header("Content-disposition: attachment; filename=\"sigur-$t.xls\"");
 <body>
   <table>
     <?
+    $rows = 0;
     while ($row = $CFG->sigur->data->fetchObject()):
       if ($rows == 0):
         echo "<tr><th>¹</th>\n";
