@@ -166,6 +166,8 @@ function renderDepts($root)
 
 function index_depts($dept, $idx = null)
 {
+  if ($idx === null)
+    $idx = (object) null;
   foreach ($dept->ch as $d):
     index_depts($d, $idx);
     if ($d->ro)
