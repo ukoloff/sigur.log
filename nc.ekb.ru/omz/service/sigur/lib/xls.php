@@ -19,6 +19,11 @@ header("Content-Type: application/vnd.ms-excel");
 </x:ExcelWorkbook>
 </xml><![endif]-->
   <meta http-equiv="Content-Type" content='text/html; charset=windows-1251' />
+  <style>
+    tr {
+      height: 1.23em;
+    }
+  </style>
 </head>
 
 <body>
