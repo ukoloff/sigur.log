@@ -1,6 +1,7 @@
 <?
-function renderXLS()
+function renderXLS($stmt)
 {
+  $rows = 0;
   $t = new DateTime();
   $t = $t->format('Y-m-d-H-i-s');
   header("Content-Type: application/vnd.ms-excel");
@@ -28,14 +29,23 @@ function renderXLS()
 
   <body>
     <table>
-      <tr>
-        <th>Параметр</th>
-        <th>Значение</th>
-        <?
-        foreach ($_POST as $k => $v):
-          echo "<tr><td>", htmlspecialchars($k), "</td><td>", htmlspecialchars($v), "</td></tr>\n";
+      <?
+      while ($row = $stmt->fetchObject()):
+        if ($rows == 0):
+          echo "<tr><th>№</th>\n";
+          foreach ($row as $k => $v):
+            echo "<th>", htmlspecialchars($k), "</th>\n";
+          endforeach;
+          echo "</tr>";
+        endif;
+        $rows++;
+        echo "<tr><td>$rows</td>\n";
+        foreach ($row as $k => $v):
+          echo "<td>", htmlspecialchars($v), "</td>\n";
         endforeach;
-        ?>
+        echo "</tr>";
+      endwhile;
+      ?>
     </table>
   </body>
 
