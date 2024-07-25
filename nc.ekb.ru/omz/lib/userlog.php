@@ -3,7 +3,7 @@ global $CFG;
 //doDebug();
 
 try {
-  $CFG->ulog = new PDO('mysql:dbname=ulog;host=nc.ekb.ru', 'ulogger', 'dNaa5N1uWY8M9vuY');
+  $CFG->ulog = new PDO('mysql:dbname=ulog;host=nc.ekb.ru', 'ulogger', '*******************');
 }
 catch(PDOException $Ex) {
 //  echo "<H2 Class='Error'>Проблема соединения с БД :-(</H2>";
