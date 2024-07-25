@@ -76,7 +76,7 @@ $s = $CFG->sigur->h->prepare($sql = <<<SQL
 SQL
 );
 $s->execute(array($dA, $dZ));
-LoadLib('./xls');
-renderXLS($s);
+$CFG->sigur->data = $s;
+LoadLib('xls');
 exit();
 ?>
