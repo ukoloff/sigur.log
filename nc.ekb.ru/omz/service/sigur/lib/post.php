@@ -2,19 +2,7 @@
 LoadLib('./user');
 LoadLib('./depts');
 
-function index_dept($dept, $idx)
-{
-  foreach ($dept->ch as $d):
-    index_dept($d, $idx);
-    if ($d->ro)
-      continue;
-    $id = $d->id;
-    $idx->$id = 1;
-  endforeach;
-}
-
-$idx = (object) null;
-index_dept(loadDepts(), $idx);
+$idx = index_depts(loadDepts());
 
 $depts = array();
 foreach ($_POST as $k => $v):

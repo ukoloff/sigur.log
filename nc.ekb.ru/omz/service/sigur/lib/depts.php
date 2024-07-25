@@ -105,7 +105,7 @@ SQL
 
   function drop_depts($dept)
   {
-    $dept->ch = array_values(array_filter($dept->ch, function ($v, $k) {
+    $dept->ch = array_values(array_filter($dept->ch, function ($v) {
       if (!$v->view)
         return;
       drop_depts(($v));
@@ -162,4 +162,16 @@ function renderDepts($root)
   }
   out_dept($root);
   echo "</div>";
+}
+
+function index_depts($dept, $idx = null)
+{
+  foreach ($dept->ch as $d):
+    index_depts($d, $idx);
+    if ($d->ro)
+      continue;
+    $id = $d->id;
+    $idx->$id = 1;
+  endforeach;
+  return $idx;
 }
