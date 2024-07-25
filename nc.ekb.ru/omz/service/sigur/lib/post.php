@@ -51,9 +51,9 @@ $s = $CFG->sigur->h->prepare(<<<SQL
   )
   select
     D.NAME as "Îòäåë",
+    U.POS as "Äîëæíîñòü",
     U.NAME as "ÔÈÎ",
     U.TABID as "Òàá. ¹",
-    U.POS as "Äîëæíîñòü",
     cast(L.LOGTIME as date) as "Äàòà",
     cast(L.LOGTIME as time) as "Âğåìÿ",
     Dv.NAME as "Ò. äîñòóïà",

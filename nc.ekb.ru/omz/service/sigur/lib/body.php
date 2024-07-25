@@ -47,7 +47,7 @@ $dates = $s->fetchObject();
 $minmax = "min=$dates->min max=$dates->max";
 
 ?>
-<form method='POST' target='inner'>
+<form method='POST' x-target='inner'>
   <table cellspacing="0">
     <tr>
       <td align="right">
