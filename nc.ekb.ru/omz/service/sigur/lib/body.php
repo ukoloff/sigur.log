@@ -13,7 +13,7 @@ if ($CFG->sigur->uid):
 else:
   echo "<b>Доступ не предоставлен</b>";
 endif;
-echo "<hr>";
+// echo "<hr>";
 
 function d2s($date)
 {
@@ -24,6 +24,8 @@ $d = new DateTime();
 $d0 = d2s($d);
 $d->modify('first day of this month');
 $d1 = d2s($d);
+$d->modify('last day of this month');
+$dZ = d2s($d);
 
 $s = $CFG->sigur->h->prepare(<<<SQL
   select
@@ -39,16 +41,32 @@ $minmax = "min=$dates->min max=$dates->max";
 
 ?>
 <form method='POST' target='inner'>
-  <label>
-    С даты
-    <input type='date' name='dA' <?= $minmax ?> required value='<?= d2s($d) ?>' />
-  </label>
-  <? $d->modify('last day of this month'); ?>
-  <label>
-    По дату
-    <input type='date' name='dZ' <?= $minmax ?> required value='<?= d2s($d) ?>' />
-  </label>
-  <input type='submit' value=' Сформировать отчёт! ' />
+  <table cellspacing="0">
+    <tr>
+      <td align="right">
+        <fieldset>
+          <legend>Даты</legend>
+          <label>
+            С
+            <input type='date' name='dA' <?= $minmax ?> required value='<?= $d1 ?>' />
+          </label>
+          <br />
+          <label>
+            По
+            <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
+          </label>
+        </fieldset>
+      </td>
+      <td>
+        <button type='submit'>
+          Сформировать<br />
+          отчёт!
+        </button>
+      </td>
+    </tr>
+  </table>
+
+
   <fieldset>
     <legend>Подразделения (<span></span>)</legend>
     <?

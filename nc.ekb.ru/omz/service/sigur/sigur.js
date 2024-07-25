@@ -63,7 +63,7 @@ function countDepts() {
 
 function updateCounts() {
   var counts = countDepts()
-  document.querySelector('form input[type=submit]').disabled = counts[0] == 0
+  document.querySelector('form button[type=submit]').disabled = counts[0] == 0
   var s = document.querySelector('fieldset > legend > span')
   if (s) s.innerText = counts.join('/')
 }
