@@ -64,7 +64,7 @@ $minmax = "min=$dates->min max=$dates->max";
       <td width="30%">
         <label>
           <input type="radio" name="format" value="xls" checked>
-          XLS<sup>*</sup>
+          XLS<sup title="См. примечание внизу страницы">*</sup>
         </label>
         <br />
         <label>
