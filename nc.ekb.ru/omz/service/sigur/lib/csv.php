@@ -13,6 +13,8 @@ while ($row = $CFG->sigur->data->fetchObject()):
   $rows++;
   echo "$rows,";
   foreach ($row as $k => $v):
+    if (preg_match('/[,"]/', $v))
+      $v = '"' . str_replace('"', '""', $v) . '"';
     echo $v, ",";
   endforeach;
   echo "\n";
