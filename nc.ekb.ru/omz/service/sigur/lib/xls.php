@@ -1,8 +1,10 @@
 <?
 function renderXLS()
 {
+  $t = new DateTime();
+  $t = $t->format('Y-m-d-H-i-s');
   header("Content-Type: application/vnd.ms-excel");
-  header('Content-disposition: attachment; filename="a.xls"');
+  header("Content-disposition: attachment; filename=\"sigur-$t.xls\"");
   ?>
   <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"
     xmlns="http://www.w3.org/TR/REC-html40">
@@ -26,23 +28,17 @@ function renderXLS()
 
   <body>
     <table>
-
       <tr>
-        <td align="center"><b>1</b></td>
-        <td>2</td>
-        <td>3</td>
-      </tr>
-      <tr>
-        <td>Превед</td>
-        <td>Medved</td>
-        <td>A3</td>
-      </tr>
-
+        <th>Параметр</th>
+        <th>Значение</th>
+        <?
+        foreach ($_POST as $k => $v):
+          echo "<tr><td>", htmlspecialchars($k), "</td><td>", htmlspecialchars($v), "</td></tr>\n";
+        endforeach;
+        ?>
     </table>
   </body>
 
   </html>
-
   <?
 }
-?>
