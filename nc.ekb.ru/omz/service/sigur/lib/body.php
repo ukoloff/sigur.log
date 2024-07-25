@@ -44,20 +44,20 @@ $minmax = "min=$dates->min max=$dates->max";
   <table cellspacing="0">
     <tr>
       <td align="right">
-          <label>
-            С
-            <input type='date' name='dA' <?= $minmax ?> required value='<?= $d1 ?>' />
-          </label>
-          <br />
-          <label>
-            По
-            <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
-          </label>
+        <label>
+          С
+          <input type='date' name='dA' <?= $minmax ?> required value='<?= $d1 ?>' />
+        </label>
+        <br />
+        <label>
+          По
+          <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
+        </label>
       </td>
       <td width="30%">
         <label>
           <input type="radio" name="format" value="xls" checked>
-          XLS
+          XLS<sup>*</sup>
         </label>
         <br />
         <label>
@@ -84,3 +84,10 @@ $minmax = "min=$dates->min max=$dates->max";
   </fieldset>
 </form>
 <iframe name=inner></iframe>
+
+<small>
+  <sup>*</sup>
+  Современные версии Microsoft Excel предупреждают,
+  что полученный XLS-файл возможно повреждён,
+  тем не менее, открывают его нормально.
+</small>
