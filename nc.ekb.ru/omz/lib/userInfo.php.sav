@@ -1,0 +1,101 @@
+<? // Вывод сведений о пользователе
+LoadLib('/userPhoto');
+
+function userInfo($u, $flags=0)
+{
+ global $CFG;
+
+ $e=getEntry($udn=user2dn($u));
+ $x=new dn($e['dn']);
+ $x->Cut();
+ $x=$x->ufn();
+/*
+ if(($flags and 1) and $tabNo=utf2html($e['employeeid'][0]) and file_exists($_SERVER['DOCUMENT_ROOT'].($f="/img/photo/$tabNo.jpg")))
+#  echo "<TR><TH>Фото</TH><TD><Img Src='$f' /></TD></TR>\n";
+  echo "<Div Class='Photo' onMouseDown='onDown(this, event)'  onMouseMove='mm(this, event)'><Img Src='$f' Alt='Фото'/></Div>\n";
+*/
+ if(($flags and 1) and hasPhoto($udn))
+  echo "<Div Class='Photo' onMouseDown='onDown(this, event)' onMouseMove='onMove(this, event)'><Img Src='/omz/abook/?jpg&u=", urlencode($u),
+    "' Alt='Фото' /></Div>\n";
+
+?>
+<Style><!--
+TH {
+	text-align: right;
+}
+Div.Photo {
+    position: absolute;
+    margin: 0.5ex;
+    border: 2px ridge;
+    padding: 0.3ex;
+    background: #A0C0F0;
+}
+
+Div.Photo Img {
+    border: 2px ridge;
+}
+--></Style>
+<Script Src='/dragPhoto.js'></Script>
+<Table Border CellSpacing='0' Width='100%'>
+<TR><TH>Учётная запись</TH><TD><?
+ if($Strike=$e['useraccountcontrol'][0]& uac_ACCOUNTDISABLE) echo "<S>";
+ echo htmlspecialchars($u);
+ if($Strike) echo "</S>";
+?>
+</TD></TR>
+<TR><TH>Подразделение</TH><TD><?= htmlspecialchars($x->str())?></TD></TR>
+<TR><TH>Ф.И.О.</TH><TD><?= utf2html($e['sn'][0]) ?> <?= utf2html($e['givenname'][0]) ?> <?= utf2html($e['middlename'][0]) ?><BR /></TD></TR>
+<?
+
+ foreach(Array(/*'cn'=>"Пользователь", */'employeeID'=>'Табельный номер', 'displayName'=>"Показывать как", 'title'=>"Должность",
+  'description'=>"Описание", 'telephoneNumber'=>"Телефон", 
+  'physicalDeliveryOfficeName'=>"Комната", 'info'=>"Заметки") as $k=>$v):
+  echo "<TR><TH>$v</TH>\n<TD>", nl2br(utf2html($e[strtolower($k)][0])), "<BR /></TD></TR>\n";
+ endforeach;
+?>
+<TR><TH>Электронная почта</TH><TD><?
+ echo utf2html($e['mail'][0]);
+ if($e['mail']['count']) echo " <A hRef='mailto:", utf2html($e['mail'][0]), "' Title='Послать почту'>&raquo;</A>";
+?><BR /></TD></TR>
+<TR><TH>Lync</TH><TD><?
+$sip=utf2html($e['msrtcsip-primaryuseraddress'][0]);
+echo preg_replace('/^sip:/i', '', $sip);
+if(strlen($sip)) echo ' <A hRef="', $sip, '" Title="Послать мгновенное сообщение">&raquo;</A>';
+?><BR /></TD></TR>
+<?
+if(0==($flags & 2)):
+?>
+<TR><TH>Доступ в Интернет</TH><TD><?
+ if(!$Squid=inGroupX('squid', $u)): 
+  echo 'Не предоставлен';
+ elseif(!inGroupX('#squid', $u)):
+  echo "Открыт";
+//, $limit? ", $limit Мегабайт в месяц" : " и неограничен"; 
+ else:
+  echo "Закрыт";
+  if(inGroupX('(squid)')) echo ", превышение месячного лимита"; //, $limit, ' Мегабайт в месяц';
+ endif;
+ if($Squid):
+  LoadLib('/mysql');
+  $L=sqlGet("Select freeMb, limitMb from limits Where u='".AddSlashes($u)."'");
+  echo "</TD><TR><TH>Бесплатный трафик</TH><TD>", ''!=$L->freeMb? $L->freeMb.' Мб/месяц':'Весь',
+    "</TD></TR><TR><TH>Порог отключения</TH><TD>", ''!=$L->limitMb? $L->limitMb.' Мб/месяц':'Не задан';
+ endif;
+?>
+</TD></TR>
+<?
+endif;
+
+if(inGroupX('#browseDIT')):
+ setlocale(LC_ALL, "ru_RU.cp1251");
+
+ foreach(Array('Создан'=>'whencreated', 'Изменён'=>'whenchanged') as $k=>$v)
+  echo "<TR><TH>$k</TH><TD>", strftime("%x %X", gmt2unix(utf2str($e[$v][0]))),  "</TD></TR>\n";
+endif;
+?>
+<TR><TH>Визитная карточка</TH><TD><A hRef='/omz/abook/?vcf&u=<?=urlencode($u)?>' Title='Получить файл с визитной карточкой'>Загрузить</A></TD></TR>
+</Table>
+<?
+}
+
+?>
