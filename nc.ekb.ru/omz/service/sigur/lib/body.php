@@ -1,8 +1,9 @@
 <?
 global $CFG;
 
-function renderScript($js) {
-  $d = getdate(filemtime(dirname(__FILE__).'/../'.$js));
+function renderScript($js)
+{
+  $d = getdate(filemtime(dirname(__FILE__) . '/../' . $js));
   $d = $d['seconds'];
   echo "<script src=$js?$d></script>";
 }
