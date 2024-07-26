@@ -73,7 +73,7 @@ $minmax = "min=$dates->min max=$dates->max";
         </label>
       </td>
       <td>
-        <button type='submit'>
+        <button type='submit' disabled>
           —формировать<br />
           отчЄт!
         </button>
