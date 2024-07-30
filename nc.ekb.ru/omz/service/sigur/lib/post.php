@@ -36,6 +36,8 @@ $s = $CFG->sigur->h->prepare(<<<SQL
       ord(substr(LOGDATA, 5, 1)) as dir
     from
       `tc-db-log`.logs
+    where
+      substr(LOGDATA, 1, 2)=0xFE06
   )
   select
     D.NAME as "Îòäåë",

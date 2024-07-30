@@ -20,6 +20,7 @@ function loadDepts()
           from
             personal as U
             join `tc-db-log`.logs as L on U.id = L.EMPHINT
+            and substr(LOGDATA, 1, 2)=0xFE06
           where
             U.PARENT_ID = p.ID
         ) as Z
