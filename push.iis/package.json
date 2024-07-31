@@ -1,0 +1,15 @@
+{
+  "name": "push.iis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "syncdir -w ../ad.ekb.ru/inetpub/wwwroot/auth/krb //ad.ekb.ru/c$/inetpub/wwwroot/auth/krb"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "sync-directory": "^6.0.5"
+  }
+}
