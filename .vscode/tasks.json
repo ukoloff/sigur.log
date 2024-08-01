@@ -4,11 +4,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Push changes to WWW",
+      "label": "Push changes to IIS",
       "type": "shell",
-      "command": "node",
+      "options": {
+        "cwd": "push.iis"
+      },
+      "command": "npm",
       "args": [
-        "push"
+        "start"
       ],
       "problemMatcher": [],
       "group": {

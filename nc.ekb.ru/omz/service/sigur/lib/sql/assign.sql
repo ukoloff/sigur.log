@@ -7,7 +7,7 @@ select
 		from
 			reportuserdep r
 			join personal D on r.EMP_ID = D.ID
-			and D.` TYPE ` = 'DEP'
+			and D.`TYPE` = 'DEP'
 			and D.STATUS = 'AVAILABLE'
 		where
 			r.USER_ID = U.ID

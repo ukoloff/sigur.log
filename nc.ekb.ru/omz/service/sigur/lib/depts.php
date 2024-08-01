@@ -20,6 +20,7 @@ function loadDepts()
           from
             personal as U
             join `tc-db-log`.logs as L on U.id = L.EMPHINT
+            and substr(LOGDATA, 1, 2)=0xFE06
           where
             U.PARENT_ID = p.ID
         ) as Z
@@ -38,7 +39,7 @@ SQL
   while ($row = $s->fetch(PDO::FETCH_OBJ)):
     $key = $row->id;
     $idx->$key = $row;
-    $row->count = 0;  // ĞšĞ¾Ğ»Ğ¸Ñ‡ĞµÑÑ‚Ğ²Ğ¾ Ğ²ÑĞµÑ… Ğ¿Ğ¾Ñ‚Ğ¾Ğ¼ĞºĞ¾Ğ²
+    $row->count = 0;  // Êîëè÷åñòâî âñåõ ïîòîìêîâ
     $row->ch = array();
   endwhile;
 
@@ -56,13 +57,13 @@ SQL
     foreach ($dept->ch as $k => $v):
       $res += count_children($v) + 1;
       if ($v->Z)
-        $dept->Z = 1;  // Ğ’ Ğ¿Ğ¾Ğ´Ñ€Ğ°Ğ·Ğ´ĞµĞ»ĞµĞ½Ğ¸Ğ¸ Ğ²Ğ¾Ğ¾Ğ±Ñ‰Ğµ ĞµÑÑ‚ÑŒ Ğ¿Ñ€Ğ¾Ñ…Ğ¾Ğ´Ñ‹
+        $dept->Z = 1;  // Â ïîäğàçäåëåíèè âîîáùå åñòü ïğîõîäû
     endforeach;
     return $dept->count = $res;
   }
   count_children($root);
 
-  // Ğ”Ğ¾ÑÑ‚Ğ°Ğ½ĞµĞ¼ Ğ¾Ñ‚Ğ´ĞµĞ»Ñ‹ Ğ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ñ‚ĞµĞ»Ñ
+  // Äîñòàíåì îòäåëû ïîëüçîâàòåëÿ
   $s = $CFG->sigur->h->prepare(
     <<<SQL
       select
@@ -77,7 +78,7 @@ SQL
   while ($row = $s->fetch()):
     $id = $row[0];
     if ($idx->$id)
-      $idx->$id->view = 1; // ĞŸĞ¾Ğ¼ĞµÑ‚Ğ¸Ğ»Ğ¸, Ñ‡Ñ‚Ğ¾ Ğ·Ğ°ĞºĞ°Ğ·Ğ°Ğ½ Ğ¿Ñ€Ğ¾ÑĞ¼Ğ¾Ñ‚Ñ€ Ğ¿Ğ¾Ğ´Ñ€Ğ°Ğ·Ğ´ĞµĞ»ĞµĞ½Ğ¸Ñ
+      $idx->$id->view = 1; // Ïîìåòèëè, ÷òî çàêàçàí ïğîñìîòğ ïîäğàçäåëåíèÿ
   endwhile;
 
   function count_views($dept)
@@ -114,7 +115,7 @@ SQL
   }
   drop_depts($root);
 
-  // ĞŸĞ¾Ğ¼ĞµÑ‚Ğ¸Ğ¼ Ğ¿Ğ¾Ğ´Ñ€Ğ°Ğ·Ğ´ĞµĞ»ĞµĞ½Ğ¸Ñ, ĞºĞ¾Ñ‚Ğ¾Ñ€Ñ‹Ğµ Ğ½ĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ğ±ÑƒĞ´ĞµÑ‚ Ğ²Ñ‹Ğ±Ñ€Ğ°Ñ‚ÑŒ
+  // Ïîìåòèì ïîäğàçäåëåíèÿ, êîòîğûå íåâîçìîæíî áóäåò âûáğàòü
   $root->avail = $root->vcount;
   foreach ($idx as $k => $v):
     if (!$v->view)
@@ -124,7 +125,7 @@ SQL
       $root->avail--;
   endforeach;
 
-  // Ğ Ğ°ÑĞºÑ€Ğ¾ĞµĞ¼ ĞºĞ¾Ñ€Ğ½ĞµĞ²Ñ‹Ğµ Ğ´ĞµĞ¿Ğ°Ñ€Ñ‚Ğ°Ğ¼ĞµĞ½Ñ‚Ñ‹
+  // Ğàñêğîåì êîğíåâûå äåïàğòàìåíòû
   for ($d = $root; count($d->ch) == 1; $d = $d->ch[0])
     $d->expanded = 1;
 

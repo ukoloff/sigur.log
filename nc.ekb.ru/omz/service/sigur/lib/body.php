@@ -1,8 +1,9 @@
 <?
 global $CFG;
 
-function renderScript($js) {
-  $d = getdate(filemtime(dirname(__FILE__).'/../'.$js));
+function renderScript($js)
+{
+  $d = getdate(filemtime(dirname(__FILE__) . '/../' . $js));
   $d = $d['seconds'];
   echo "<script src=$js?$d></script>";
 }
@@ -73,7 +74,7 @@ $minmax = "min=$dates->min max=$dates->max";
         </label>
       </td>
       <td>
-        <button type='submit'>
+        <button type='submit' disabled>
           —формировать<br />
           отчЄт!
         </button>
