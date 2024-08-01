@@ -14,3 +14,7 @@ if ($_GET['auth'] == 'AD'):
     header('Location: ./');
   endif;
 endif;
+
+if ($_GET['TiCkEt']):
+  LoadLib('kerberos');
+endif;
