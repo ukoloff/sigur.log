@@ -1,5 +1,7 @@
 <%@Language='JScript'%>
 <%
+Server.Execute('be/expire.asp')
+
 var jsonEsc = { "\n": 'n', "\r": 'r' }
 
 switch ('' + Request.QueryString) {

@@ -1,5 +1,7 @@
 <%@Language='JScript'%>
 <%
+Server.Execute('expire.asp')
+
 var param = String(Request.QueryString)
 switch (param) {
   case 'dump':
