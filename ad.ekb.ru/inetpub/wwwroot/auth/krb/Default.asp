@@ -48,4 +48,12 @@ function r2j(rec) {
   return '{' + res + '}'
 }
 
+function rnd(N) {
+  for (var S = ''; S.length < (N || 21);) {
+    var n = Math.floor(62 * Math.random());
+    S += String.fromCharCode('Aa0'.charCodeAt(n / 26) + n % 26);
+  }
+  return S;
+}
+
 %>
