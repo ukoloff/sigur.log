@@ -18,10 +18,12 @@ function auth() {
   var ref = z('HTTP_REFERER')
   if (ref.count != 1 && !/^https:\/\/([-\w_]+[.])+ekb[.]ru\//.test(z(1))) return
   ref = ref(1)
+  var si = new ActiveXObject("ADSystemInfo")
   var key = rnd()
   Application(key) = r2j({
     auth: z('AUTH_TYPE'),
     user: z('AUTH_USER'),
+    dn: si.UserName,
     ip: z('REMOTE_ADDR'),
     ua: z('HTTP_USER_AGENT'),
     blob: z('HTTP_AUTHORIZATION')(1).split(/\s+/, 2)[1]
