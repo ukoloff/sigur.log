@@ -1,21 +1,21 @@
 <%@Language='JScript'%>
 <%
-var jsonEsc = {"\n": 'n', "\r": 'r'}
+var jsonEsc = { "\n": 'n', "\r": 'r' }
 
 switch ('' + Request.QueryString) {
-    case 'dump':
-        dump()
-        break
-    case 'auth':
-        auth()
-        break
+  case 'dump':
+    dump()
+    break
+  case 'auth':
+    auth()
+    break
 }
 
 function dump() {
-    Response.Write('<table border cellspacing=0>')
-    for (var E = new Enumerator(Request.ServerVariables); !E.atEnd(); E.moveNext())
-        Response.Write('<tr><th>' + E.item() + '</th><td>' + Request.ServerVariables(E.item()) + '</td></tr>');
-    Response.Write('</table>')
+  Response.Write('<table border cellspacing=0>')
+  for (var E = new Enumerator(Request.ServerVariables); !E.atEnd(); E.moveNext())
+    Response.Write('<tr><th>' + E.item() + '</th><td>' + Request.ServerVariables(E.item()) + '</td></tr>');
+  Response.Write('</table>')
 }
 
 function auth() {
@@ -41,10 +41,11 @@ function s2j(str) {
 
 function r2j(rec) {
   var res = ''
-  for( var k in rec) {
+  for (var k in rec) {
     if (res) res += ','
     res += s2j(k) + '=' + s2j(rec[k])
   }
   return '{' + res + '}'
 }
+
 %>
