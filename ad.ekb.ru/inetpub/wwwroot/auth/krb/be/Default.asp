@@ -9,9 +9,12 @@ switch (param) {
   case 'dev':
   case 'vars':
     Server.Execute(param + '.asp')
+    break;
+  default:
+    if (Request.ServerVariables("REQUEST_METHOD") == "POST")
+      Server.Execute('post.asp')
+    else if (Request.QueryString('TiCkEt').Count==1)
+      Server.Execute('2nd.asp')
 }
 
-var t = Request.QueryString('TiCkEt')
-if (t.Count==1)
-  Server.Execute('2nd.asp')
 %>
