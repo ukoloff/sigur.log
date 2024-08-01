@@ -13,7 +13,7 @@ switch (param) {
   default:
     if (Request.ServerVariables("REQUEST_METHOD") == "POST")
       Server.Execute('post.asp')
-    else if (Request.QueryString('TiCkEt').Count==1)
+    else if (Request.QueryString('TiCkEt').Count == 1)
       Server.Execute('2nd.asp')
 }
 

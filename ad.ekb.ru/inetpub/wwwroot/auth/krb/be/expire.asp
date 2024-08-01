@@ -16,4 +16,5 @@ for (var E = new Enumerator(X); !E.atEnd(); E.moveNext()) {
 
 for (var i = old.length - 1; i >= 0; i--)
   X.Remove(old[i])
+
 %>
