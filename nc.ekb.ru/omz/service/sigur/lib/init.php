@@ -1,5 +1,6 @@
 <?
-session_name('SIGURS');
+session_name('SigurS');
+session_set_cookie_params(0, preg_replace('/[^\/]+$/', '', $_SERVER['REQUEST_URI']));
 session_start();
 
 $CFG->title = 'Ёкспорт из Sigur';
@@ -8,6 +9,7 @@ if ($_GET['auth'] == 'AD'):
   $CFG->AAA = 1;
   if ($CFG->Auth):
     // Authorized via AD
+    session_regenerate_id(1);
     $_SESSION['u'] = $CFG->u;
     $_SESSION['meth'] = 'AD';
 
