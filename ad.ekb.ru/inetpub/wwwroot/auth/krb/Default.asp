@@ -20,8 +20,10 @@ function dump() {
 
 function auth() {
   var z = Request.ServerVariables
+  var ref = z('HTTP_REFERER')
+  if (ref.count != 1 && !/^https:\/\/([-\w_]+[.])+ekb[.]ru\//.test(z(1))) return
+  ref = ref(1)
   Response.Write(r2j({
-    ref: z('HTTP_REFERER'),
     auth: z('AUTH_TYPE'),
     user: z('AUTH_USER'),
     ip: z('REMOTE_ADDR'),
@@ -43,8 +45,8 @@ function s2j(str) {
 function r2j(rec) {
   var res = ''
   for (var k in rec) {
-    if (res) res += ','
-    res += s2j(k) + '=' + s2j(rec[k])
+    if (res) res += ',\n'
+    res += s2j(k) + ': ' + s2j(rec[k])
   }
   return '{' + res + '}'
 }
