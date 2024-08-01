@@ -3,6 +3,14 @@ Mass export data from Sigur
 
 ## Dev environment
 
+Access:
+- [Development]
+- [Production]
+
+[Development]: https://nc.ekb.ru/omz/service/sgr/
+[Production]: https://nc.ekb.ru/omz/service/sigur/
+
+
 1) Allow SSH access from old clients
     ```
     # /etc/ssh/sshd_config.d/old.conf
@@ -28,3 +36,4 @@ Mass export data from Sigur
 [sshfs]: https://github.com/libfuse/sshfs
 
 3) Add symlinks *quantum satis*
+
