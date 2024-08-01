@@ -21,6 +21,7 @@ function dump() {
 function auth() {
   var z = Request.ServerVariables
   Response.Write(r2j({
+    ref: z('HTTP_REFERER'),
     auth: z('AUTH_TYPE'),
     user: z('AUTH_USER'),
     ip: z('REMOTE_ADDR'),

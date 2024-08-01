@@ -1,1 +1,9 @@
-Please, protect <a href=..>/auth/krb/</a> folder with Negotiate / Kerberos
+<%@Language='JScript'%>
+<%
+var param = String(Request.QueryString)
+switch (param) {
+  case 'warn':
+  case 'dev':
+    Server.Execute(param + '.asp')
+}
+%>
