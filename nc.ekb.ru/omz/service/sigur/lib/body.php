@@ -1,2 +1,2 @@
 <?
-LoadLib('main');
+LoadLib($_SESSION[u] ? 'main' : 'auth');
