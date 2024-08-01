@@ -12,9 +12,16 @@ if ($_GET['auth'] == 'AD'):
     $_SESSION['meth'] = 'AD';
 
     header('Location: ./');
+    exit();
   endif;
 endif;
 
 if ($_GET['TiCkEt']):
+  $_SESSION['t'] = $_GET['TiCkEt'];
+  header('Location: ./');
+  exit();
+endif;
+
+if ($_SESSION['t']):
   LoadLib('kerberos');
 endif;
