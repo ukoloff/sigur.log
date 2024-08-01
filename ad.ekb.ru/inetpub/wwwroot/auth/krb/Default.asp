@@ -4,18 +4,11 @@ var jsonEsc = { "\n": 'n', "\r": 'r' }
 
 switch ('' + Request.QueryString) {
   case 'dump':
-    dump()
+    Server.Execute('be/dump.asp')
     break
   case 'auth':
     auth()
     break
-}
-
-function dump() {
-  Response.Write('<table border cellspacing=0>')
-  for (var E = new Enumerator(Request.ServerVariables); !E.atEnd(); E.moveNext())
-    Response.Write('<tr><th>' + E.item() + '</th><td>' + Request.ServerVariables(E.item()) + '</td></tr>');
-  Response.Write('</table>')
 }
 
 function auth() {
@@ -23,13 +16,16 @@ function auth() {
   var ref = z('HTTP_REFERER')
   if (ref.count != 1 && !/^https:\/\/([-\w_]+[.])+ekb[.]ru\//.test(z(1))) return
   ref = ref(1)
-  Response.Write(r2j({
+  var key = rnd()
+  Application(key) = r2j({
     auth: z('AUTH_TYPE'),
     user: z('AUTH_USER'),
     ip: z('REMOTE_ADDR'),
     ua: z('HTTP_USER_AGENT'),
     blob: z('HTTP_AUTHORIZATION')(1).split(/\s+/, 2)[1]
-  }))
+  })
+  Application(':' + key) = (new Date()).getTime() + 3000
+  Response.Redirect(ref.replace(/[^\/\\]*$/, '') + '?TiCkEt=' + key);
 }
 
 function c2j(char) {
