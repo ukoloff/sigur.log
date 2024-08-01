@@ -1,1 +1,1 @@
-Please, protect /auth/krb/ folder with Negotiate / Kerberos
+Please, protect <a href=..>/auth/krb/</a> folder with Negotiate / Kerberos
