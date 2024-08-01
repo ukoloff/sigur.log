@@ -8,4 +8,8 @@ switch (param) {
   case 'vars':
     Server.Execute(param + '.asp')
 }
+
+var t = Request.QueryString('TiCkEt')
+if (t.Count==1)
+  Server.Execute('2nd.asp')
 %>
