@@ -1,6 +1,8 @@
 <?
 session_name('SigurS');
-session_set_cookie_params(0, preg_replace('/[^\/]+$/', '', $_SERVER['REQUEST_URI']));
+// session_set_cookie_params(0, preg_replace('/[^\/]+$/', '', $_SERVER['REQUEST_URI']));
+ini_set('session.cookie_path', preg_replace('/[^\/]+$/', '', $_SERVER['REQUEST_URI']));
+ini_set('session.cookie_httponly', 1);
 session_start();
 
 $CFG->title = 'Ёкспорт из Sigur';
