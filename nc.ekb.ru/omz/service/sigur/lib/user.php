@@ -5,11 +5,18 @@ $h = $CFG->sigur;
 unset($CFG->sigur);
 $CFG->sigur->h = $h;
 
+// Запасной вход в AD
+if (!$CFG->u):
+  require '/etc/nc.ekb.ru/passwd/nc.ekb.ru.php';
+  ldapCheckPass($adLogin, $adPassword);
+endif;
+
+
 function sigur_UID($u = '')
 {
   global $CFG;
   if (!$u)
-    $u = $CFG->u;
+    $u = $_SESSION['u'];
   $g = getEntry(user2dn($u), 'objectguid');
   $g = bin2hex($g['objectguid'][0]);
 
@@ -35,7 +42,7 @@ function sigurUID($u = '')
 {
   global $CFG;
   if (!$u)
-    $u = $CFG->u;
+    $u = $_SESSION['u'];
 
   if (substr($u, -1) == '1'):
     $n = sigur_UID(substr($u, 0, -1));
