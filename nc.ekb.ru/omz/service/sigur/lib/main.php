@@ -65,9 +65,31 @@ $minmax = "min=$dates->min max=$dates->max";
             По
             <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
           </label>
+          <div align="center">
+            <small><a href="#" onclick="return false">Выбор</a></small>
+          </div>
         </fieldset>
       </td>
-      <td valign="top">
+      <td>
+        <fieldset>
+          <legend><small>Вид отчёта</small></legend>
+          <label title="В две колонки: вход / выход">
+            <input type="radio" name="report" value="2" checked>
+            Журнал входов-выходов на территорию
+          </label>
+          <br />
+          <label title="В одну колонку">
+            <input type="radio" name="report" value="1">
+            Все проходы персонала
+          </label>
+          <br />
+          <label title="Первый вход и последний выход">
+            <input type="radio" name="report" value="-">
+            Унифицированный отчет о рабочем времени
+          </label>
+        </fieldset>
+      </td>
+      <td>
         <fieldset>
           <legend><small>Формат файла</small></legend>
           <label>
