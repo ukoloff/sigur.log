@@ -11,5 +11,6 @@ $Res = curl_exec($c);
 $Res = json_decode($Res);
 // print_r($Res);
 session_regenerate_id(1);
-$_SESSION['u'] = $Res->user;
+$_SESSION['user'] = $Res->user;
+$_SESSION['u'] = preg_replace('/^\w+\\\/', '', $_SESSION['user']);
 $_SESSION['meth'] = 'krb';
