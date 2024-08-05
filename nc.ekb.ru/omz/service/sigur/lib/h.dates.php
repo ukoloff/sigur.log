@@ -35,6 +35,6 @@ function d2s($date)
     <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
   </label>
   <div align="center">
-    <small><a href="#" onclick="return false">Выбор</a></small>
+    <small><a href="#">Выбор</a></small>
   </div>
 </fieldset>

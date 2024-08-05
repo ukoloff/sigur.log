@@ -2,6 +2,8 @@ setTimeout(function () {
   document.getElementById('/*')
     .addEventListener('click', clicker)
   updateCounts()
+  document.querySelector('fieldset:has(input[type=date]) a')
+    .onclick = dateDrop
 }, 100)
 
 function clicker(ev) {
@@ -64,6 +66,10 @@ function countDepts() {
 function updateCounts() {
   var counts = countDepts()
   document.querySelector('form button[type=submit]').disabled = counts[0] == 0
-  var s = document.querySelector('fieldset > legend > span')
+  var s = document.querySelector('fieldset > legend span')
   if (s) s.innerText = counts.join('/')
+}
+
+function dateDrop(ev) {
+  ev.preventDefault()
 }

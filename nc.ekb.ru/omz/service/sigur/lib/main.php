@@ -26,7 +26,7 @@ LoadLib('h.user');
   </table>
 
   <fieldset>
-    <legend>Подразделения (<span></span>)</legend>
+    <legend><small>Подразделения (<span></span>)</small></legend>
     <?
     LoadLib('./depts');
     renderDepts(loadDepts());
