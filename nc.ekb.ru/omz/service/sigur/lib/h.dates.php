@@ -34,7 +34,8 @@ function d2s($date)
     По
     <input type='date' name='dZ' <?= $minmax ?> required value='<?= $d0 ?>' />
   </label>
-  <div align="center">
-    <small><a href="#">Выбор</a></small>
+  <div id="datez">
+    <a href="#">Выбор</a>
+    <? LoadLib('h.popup') ?>
   </div>
 </fieldset>

@@ -33,7 +33,6 @@ LoadLib('h.user');
     ?>
   </fieldset>
 </form>
-<iframe name=inner></iframe>
 
 <small>
   <sup>*</sup>
