@@ -87,15 +87,26 @@ function installDates() {
   }
 }
 
-function dateField() {
-  return document.forms[0].dA
+function datePicker(fn) {
+  var f = document.forms[0]
+  var z = document.createElement('input')
+  z.type = 'date'
+  z.value = f.dZ.value
+  z.min = f.dA.min
+  if (z.min > f.dZ.min) z.min = f.dZ.min
+  z.max = f.dA.max
+  if (z.max < f.dZ.max) z.max = f.dZ.max
+  z.onchange = fn
+  z.showPicker()
+  return z
 }
 
 function skip() {
-  console.log(this)
   return false
 }
 
 function theMonth() {
-  dateField().showPicker()
+  datePicker(function () {
+    document.forms[0].dA.value = z.value
+  })
 }
