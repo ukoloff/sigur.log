@@ -105,8 +105,18 @@ function skip() {
   return false
 }
 
+function d2s(date) {
+  return date.toISOString().replace(/T.*/, '')
+}
+
 function theMonth() {
   datePicker(function () {
-    document.forms[0].dA.value = z.value
+    var f = document.forms[0]
+    var d = new Date(this.value)
+    d.setDate(1)
+    f.dA.value = d2s(d)
+    d.setMonth(d.getMonth() + 1)
+    d.setDate(0)
+    f.dZ.value = d2s(d)
   })
 }
