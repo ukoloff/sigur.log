@@ -76,7 +76,11 @@ function dateDrop(ev) {
 }
 
 function installDates() {
-  var handlers = [, thisMonth, prevMonth, theMonth, thisWeek, prevWeek, theWeek]
+  var handlers = [
+    skip,
+    thisMonth, prevMonth, theMonth,
+    thisWeek, prevWeek, theWeek,
+    dayA, dayZ, theDay]
   for (var a of Array.from(document.getElementById('datez').getElementsByTagName('a'))) {
     a.onclick = (function (handler) {
       return function (ev) {
@@ -154,10 +158,25 @@ function prevWeek() {
   setWeek(d)
 }
 
-
 function theWeek() {
   datePicker(function () {
     setWeek(this.value)
   })
+}
 
+function dayA() {
+  var f = document.forms[0]
+  f.dZ.value = f.dA.value
+}
+
+function dayZ() {
+  var f = document.forms[0]
+  f.dA.value = f.dZ.value
+}
+
+function theDay() {
+  datePicker(function () {
+    var f = document.forms[0]
+    f.dZ.value = f.dA.value = d2s(new Date(this.value))
+  })
 }
