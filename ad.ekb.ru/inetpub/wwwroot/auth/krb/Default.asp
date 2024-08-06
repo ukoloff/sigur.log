@@ -4,20 +4,22 @@ Server.Execute('be/expire.asp')
 
 var jsonEsc = { "\n": 'n', "\r": 'r' }
 
-switch ('' + Request.QueryString) {
-  case 'dump':
-    Server.Execute('be/dump.asp')
-    break
-  case 'auth':
-    auth()
-    break
-}
+var q = Request.QueryString
+if (q('dump').Count == 1)
+  Server.Execute('be/dump.asp')
+else if (q('auth').Count == 1)
+  auth(q('auth')(1))
 
-function auth() {
+function auth(ref) {
   var z = Request.ServerVariables
-  var ref = z('HTTP_REFERER')
-  if (ref.count != 1 && !/^https:\/\/([-\w_]+[.])+ekb[.]ru\//.test(z(1))) return
-  ref = ref(1)
+  if (!ref) {
+    ref = z('HTTP_REFERER')
+    if (ref.count != 1) return
+    ref = ref(1)
+  }
+  if (!/^https:\/\/([-\w_]+[.])+ekb[.]ru\//.test(ref)) return
+  ref = ref.replace(/[^\/\\]*$/, '')
+
   var si = new ActiveXObject("ADSystemInfo")
   var key = rnd()
   Application(key) = r2j({
@@ -29,7 +31,7 @@ function auth() {
     blob: z('HTTP_AUTHORIZATION')(1).split(/\s+/, 2)[1]
   })
   Application(':' + key) = (new Date()).getTime() + 3000
-  Response.Redirect(ref.replace(/[^\/\\]*$/, '') + '?TiCkEt=' + key);
+  Response.Redirect(ref + '?TiCkEt=' + key);
 }
 
 function c2j(char) {

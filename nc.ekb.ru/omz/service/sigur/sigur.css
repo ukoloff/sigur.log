@@ -20,6 +20,22 @@ div#\/\* input[type=checkbox] {
   top: 0.4ex;
 }
 
-iframe {
+div#datez {
+  position: relative;
+  text-align: center;
+  font-size: 61.8%;
+}
+
+div#datez > div{
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
   display: none;
+  border: 1px solid black;
+  background: silver;
+}
+
+div#datez:hover > div{
+  display: block;
 }
