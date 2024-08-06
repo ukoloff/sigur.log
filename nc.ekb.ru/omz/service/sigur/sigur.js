@@ -4,8 +4,7 @@ setTimeout(function () {
   updateCounts()
   document.querySelector('fieldset:has(input[type=date]) a')
     .onclick = dateDrop
-  document.getElementById('datez')
-    .addEventListener('click', fillDates)
+  installDates()
 }, 100)
 
 function clicker(ev) {
@@ -76,9 +75,27 @@ function dateDrop(ev) {
   ev.preventDefault()
 }
 
-function fillDates(ev) {
-  var el = ev.srcElement
-  if (el.tagName == 'A') {
-    ev.preventDefault()
+function installDates() {
+  var handlers = [, , , theMonth]
+  for (var a of Array.from(document.getElementById('datez').getElementsByTagName('a'))) {
+    a.onclick = (function (handler) {
+      return function (ev) {
+        ev.preventDefault()
+        handler.call(this, ev)
+      }
+    })(handlers.shift() || skip)
   }
+}
+
+function dateField() {
+  return document.forms[0].dA
+}
+
+function skip() {
+  console.log(this)
+  return false
+}
+
+function theMonth() {
+  dateField().showPicker()
 }
