@@ -4,6 +4,8 @@ setTimeout(function () {
   updateCounts()
   document.querySelector('fieldset:has(input[type=date]) a')
     .onclick = dateDrop
+  document.getElementById('datez')
+    .addEventListener('click', fillDates)
 }, 100)
 
 function clicker(ev) {
@@ -72,4 +74,11 @@ function updateCounts() {
 
 function dateDrop(ev) {
   ev.preventDefault()
+}
+
+function fillDates(ev) {
+  var el = ev.srcElement
+  if (el.tagName == 'A') {
+    ev.preventDefault()
+  }
 }
