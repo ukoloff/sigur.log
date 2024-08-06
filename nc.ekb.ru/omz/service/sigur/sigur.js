@@ -97,12 +97,16 @@ function datePicker(fn) {
   z.type = 'date'
   z.value = f.dZ.value
   z.min = f.dA.min
-  if (z.min > f.dZ.min) z.min = f.dZ.min
-  z.max = f.dA.max
-  if (z.max < f.dZ.max) z.max = f.dZ.max
+  z.max = f.dZ.max
   z.onchange = fn
   z.showPicker()
   return z
+}
+
+function minmax() {
+  var f = document.forms[0]
+  if (f.dA.min > f.dA.value) f.dA.min = f.dA.value
+  if (f.dZ.max < f.dZ.value) f.dZ.max = f.dZ.value
 }
 
 function skip() {
@@ -121,6 +125,7 @@ function setMonth(date) {
   d.setMonth(d.getMonth() + 1)
   d.setDate(0)
   f.dZ.value = d2s(d)
+  minmax()
 }
 
 function thisMonth() {
@@ -146,6 +151,7 @@ function setWeek(date) {
   f.dA.value = d2s(d)
   d.setDate(d.getDate() + 6)
   f.dZ.value = d2s(d)
+  minmax()
 }
 
 function thisWeek() {
