@@ -76,7 +76,7 @@ function dateDrop(ev) {
 }
 
 function installDates() {
-  var handlers = [, , , theMonth]
+  var handlers = [, thisMonth, prevMonth, theMonth]
   for (var a of Array.from(document.getElementById('datez').getElementsByTagName('a'))) {
     a.onclick = (function (handler) {
       return function (ev) {
@@ -109,14 +109,28 @@ function d2s(date) {
   return date.toISOString().replace(/T.*/, '')
 }
 
+function setMonth(date) {
+  var f = document.forms[0]
+  var d = new Date(date)
+  d.setDate(1)
+  f.dA.value = d2s(d)
+  d.setMonth(d.getMonth() + 1)
+  d.setDate(0)
+  f.dZ.value = d2s(d)
+}
+
+function thisMonth() {
+  setMonth(new Date)
+}
+
+function prevMonth() {
+  var d = new Date
+  d.setMonth(d.getMonth() - 1)
+  setMonth(d)
+}
+
 function theMonth() {
   datePicker(function () {
-    var f = document.forms[0]
-    var d = new Date(this.value)
-    d.setDate(1)
-    f.dA.value = d2s(d)
-    d.setMonth(d.getMonth() + 1)
-    d.setDate(0)
-    f.dZ.value = d2s(d)
+    setMonth(this.value)
   })
 }
