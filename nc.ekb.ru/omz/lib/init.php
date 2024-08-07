@@ -3,9 +3,8 @@ if (isset($_GET['login'])):
   if ($CFG->Auth):
     Header('Location: ./');
     exit();
-  else:
-    $CFG->AAA = 1;
   endif;
+  $CFG->AAA = 1;
 endif;
 
 if (isset($_GET['logout'])):
