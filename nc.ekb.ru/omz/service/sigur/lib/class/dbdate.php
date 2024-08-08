@@ -42,7 +42,10 @@ class dbDate extends dbStream
             endif;
         endswitch;
       endforeach;
-      $first = 0;
+      if ($first):
+        $first = 0;
+        $this->count = $count;
+      endif;
       $res->list[] = $extra;
     endwhile;
   }
