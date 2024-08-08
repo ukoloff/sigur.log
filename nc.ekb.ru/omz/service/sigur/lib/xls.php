@@ -23,6 +23,11 @@ header("Content-Type: application/vnd.ms-excel");
     tr {
       height: 1.23em;
     }
+    br {
+      /* https://stackoverflow.com/a/4758535 */
+      /* https://www.bennadel.com/blog/1095-maintaining-line-breaks-in-an-html-excel-file.htm */
+      mso-data-placement:same-cell;
+    }
   </style>
 </head>
 
@@ -41,7 +46,7 @@ header("Content-Type: application/vnd.ms-excel");
       $rows++;
       echo "<tr><td>$rows</td>\n";
       foreach ($row as $k => $v):
-        echo "<td>", htmlspecialchars($v), "</td>\n";
+        echo "<td>", nl2br(htmlspecialchars($v)), "</td>\n";
       endforeach;
       echo "</tr>";
     endwhile;
