@@ -11,9 +11,9 @@ while ($row = $CFG->sigur->data->fetchObject()):
     echo "\n";
   endif;
   $rows++;
-  echo "$rows";
+  echo $rows;
   foreach ($row as $k => $v):
-    if (preg_match('/[,"]/', $v))
+    if (preg_match('/^\s+|\s+$|[,"\r\n]/', $v))
       $v = '"' . str_replace('"', '""', $v) . '"';
     echo ",$v";
   endforeach;
