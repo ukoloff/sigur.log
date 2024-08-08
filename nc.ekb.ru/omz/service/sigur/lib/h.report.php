@@ -11,7 +11,7 @@
   </label>
   <br />
   <label title="ѕервый вход и последний выход">
-    <input type="radio" name="report" value="-" disabled>
+    <input type="radio" name="report" value="-">
     ”нифицированный отчет о рабочем времени
   </label>
 </fieldset>
