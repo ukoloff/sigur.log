@@ -42,7 +42,7 @@ function sigurUID($u = '')
 {
   if (!$u)
     $u = $_SESSION['u'];
-  echo "<!-- [$u] -->";
+
   $uid = sigur_UID($u);
   if ($uid)
     return $uid;
