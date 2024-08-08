@@ -80,11 +80,6 @@ $t = $t->format('Y-m-d-H-i-s');
 // header("Content-disposition: attachment; filename=\"sigur-$t.$format\"");
 // LoadLib($format);
 
-spl_autoload_register(function ($class) {
-  include __DIR__ . '/class/' . $class . '.php';
-});
-
-$z = new dbStream();
-print_r($z);
+include __DIR__ . '/postproc.php';
 
 exit();
