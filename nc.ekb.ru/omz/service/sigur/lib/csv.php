@@ -6,7 +6,7 @@ while ($row = $CFG->sigur->data->fetchObject()):
   if ($rows == 0):
     echo "¹";
     foreach ($row as $k => $v):
-      echo ",$k";
+      echo ";$k";
     endforeach;
     echo "\n";
   endif;
@@ -15,7 +15,7 @@ while ($row = $CFG->sigur->data->fetchObject()):
   foreach ($row as $k => $v):
     if (preg_match('/^\s+|\s+$|[,"\r\n]/', $v))
       $v = '"' . str_replace('"', '""', $v) . '"';
-    echo ",$v";
+    echo ";$v";
   endforeach;
   echo "\n";
 endwhile;
