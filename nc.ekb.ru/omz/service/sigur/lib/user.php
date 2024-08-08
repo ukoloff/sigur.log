@@ -40,16 +40,16 @@ SQL
 
 function sigurUID($u = '')
 {
-  global $CFG;
   if (!$u)
     $u = $_SESSION['u'];
+  echo "<!-- [$u] -->";
+  $uid = sigur_UID($u);
+  if ($uid)
+    return $uid;
 
-  if (substr($u, -1) == '1'):
-    $n = sigur_UID(substr($u, 0, -1));
-    if ($n)
-      return $n;
-  endif;
-  return sigur_UID($u);
+  if (!preg_match('/\D1$/', $u))
+    return;
+  return sigur_UID(substr($u, 0, -1));
 }
 
 $CFG->sigur->uid = sigurUID();
