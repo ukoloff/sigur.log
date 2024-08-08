@@ -37,14 +37,14 @@ header("Content-Type: application/vnd.ms-excel");
     $rows = 0;
     while ($row = $CFG->sigur->data->fetchObject()):
       if ($rows == 0):
-        echo "<tr><th>¹</th>\n";
+        echo "<tr>\n";
         foreach ($row as $k => $v):
           echo "<th>", htmlspecialchars($k), "</th>\n";
         endforeach;
         echo "</tr>";
       endif;
       $rows++;
-      echo "<tr><td>$rows</td>\n";
+      echo "<tr>\n";
       foreach ($row as $k => $v):
         echo "<td>", nl2br(htmlspecialchars($v)), "</td>\n";
       endforeach;
