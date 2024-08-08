@@ -44,14 +44,11 @@ $s = $CFG->sigur->h->prepare(<<<SQL
     U.POS as "Должность",
     U.NAME as "ФИО",
     U.TABID as "Таб. №",
-    cast(L.LOGTIME as date) as "Дата",
-    cast(L.LOGTIME as time) as "Время",
-    Dv.NAME as "Т. доступа",
-    case
-      when dir = 1 then 'Выход'
-      when dir = 2 then 'Вход'
-      else concat('?', dir)
-    end As "Направление"
+    U.ID as id,
+    cast(L.LOGTIME as date) as "date",
+    cast(L.LOGTIME as time) as "time",
+    Dv.NAME as "gate",
+    dir
   from
     personal D
     join personal U on D.ID = U.PARENT_ID

@@ -4,4 +4,9 @@ spl_autoload_register(function ($class) {
 });
 
 $z = new dbDate($s);
-print_r($z);
+
+echo "<pre>";
+for ($i = 0; $i < 5; $i++):
+  $row = $z->fetchObject();
+  print_r($row);
+endfor;
