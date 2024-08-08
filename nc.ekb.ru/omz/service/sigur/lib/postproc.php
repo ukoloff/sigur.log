@@ -4,9 +4,10 @@ spl_autoload_register(function ($class) {
 });
 
 $z = new dbDate($s);
+$z = new Tabel($z);
 
-echo "<pre>";
-for ($i = 0; $i < 5; $i++):
-  $row = $z->fetchObject();
-  print_r($row);
-endfor;
+$CFG->sigur->data = $z;
+
+header("Content-disposition: attachment; filename=\"sigur-$t.$format\"");
+LoadLib($format);
+

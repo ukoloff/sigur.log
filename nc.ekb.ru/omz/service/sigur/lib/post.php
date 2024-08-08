@@ -47,8 +47,8 @@ $s = $CFG->sigur->h->prepare(<<<SQL
     U.ID as id,
     cast(L.LOGTIME as date) as "date",
     cast(L.LOGTIME as time) as "time",
-    Dv.NAME as "gate",
-    dir
+    dir,
+    Dv.NAME as "gate"
   from
     personal D
     join personal U on D.ID = U.PARENT_ID
