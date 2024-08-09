@@ -2,9 +2,9 @@
 spl_autoload_register(function ($class) {
   include __DIR__ . '/class/' . strtolower($class) . '.php';
 });
-doDebug();
+
 $z = new dbDate($s);
-$z = new dbList($z);
+$z = new dbPasses($z);
 
 $CFG->sigur->data = $z;
 
