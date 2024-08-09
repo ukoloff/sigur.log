@@ -53,7 +53,7 @@ $s = $CFG->sigur->h->prepare(<<<SQL
     personal D
     join personal U on D.ID = U.PARENT_ID
     join Logs L on U.ID = L.EMPHINT
-    left join devices Dv on Dv.ID = DEVHINT
+    join devices Dv on Dv.ID = DEVHINT
   where
     D.ID in ($depts)
     and LOGTIME >= ?
