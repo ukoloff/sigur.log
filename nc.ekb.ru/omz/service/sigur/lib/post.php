@@ -65,7 +65,25 @@ $s = $CFG->sigur->h->prepare(<<<SQL
 SQL
 );
 $s->execute(array($dA, $dZ));
-$CFG->sigur->data = $s;
+
+spl_autoload_register(function ($class) {
+  include __DIR__ . '/class/' . strtolower($class) . '.php';
+});
+
+$z = new dbDate($s);
+$report = $_POST['report'];
+switch ($_POST['report']):
+  case 'journal':
+    $z = new dbPasses($z);
+    break;
+  case 'daily':
+    $z = new Tabel($z);
+    break;
+  default:
+    $report = 'inout';
+    $z = new dbInOut($z);
+endswitch;
+$CFG->sigur->data = $z;
 
 $formats = explode(':', 'xls:csv');
 $format = $_POST['format'];
@@ -74,18 +92,20 @@ if (!in_array($format, $formats))
 
 $t = new DateTime();
 $t = $t->format('Y-m-d-H-i-s');
-// header("Content-disposition: attachment; filename=\"sigur-$t.$format\"");
-// LoadLib($format);
-
-include __DIR__ . '/postproc.php';
+header("Content-disposition: attachment; filename=\"sigur-$report-$t.$format\"");
+LoadLib($format);
 
 exit();
 
-function directionName($dir) {
-  switch ($dir) :
-    case 1: return 'Выход';
-    case 2: return 'Вход';
-    default: return "<$dir>";
+function directionName($dir)
+{
+  switch ($dir):
+    case 1:
+      return 'Выход';
+    case 2:
+      return 'Вход';
+    default:
+      return "<$dir>";
   endswitch;
 }
 
