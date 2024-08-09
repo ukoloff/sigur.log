@@ -44,19 +44,16 @@ $s = $CFG->sigur->h->prepare(<<<SQL
     U.POS as "Должность",
     U.NAME as "ФИО",
     U.TABID as "Таб. №",
-    cast(L.LOGTIME as date) as "Дата",
-    cast(L.LOGTIME as time) as "Время",
-    Dv.NAME as "Т. доступа",
-    case
-      when dir = 1 then 'Выход'
-      when dir = 2 then 'Вход'
-      else concat('?', dir)
-    end As "Направление"
+    U.ID as id,
+    cast(L.LOGTIME as date) as "date",
+    cast(L.LOGTIME as time) as "time",
+    dir,
+    Dv.NAME as "gate"
   from
     personal D
     join personal U on D.ID = U.PARENT_ID
     join Logs L on U.ID = L.EMPHINT
-    left join devices Dv on Dv.ID = DEVHINT
+    join devices Dv on Dv.ID = DEVHINT
   where
     D.ID in ($depts)
     and LOGTIME >= ?
@@ -68,7 +65,25 @@ $s = $CFG->sigur->h->prepare(<<<SQL
 SQL
 );
 $s->execute(array($dA, $dZ));
-$CFG->sigur->data = $s;
+
+spl_autoload_register(function ($class) {
+  include __DIR__ . '/class/' . strtolower($class) . '.php';
+});
+
+$z = new dbDate($s);
+$report = $_POST['report'];
+switch ($_POST['report']):
+  case 'journal':
+    $z = new dbPasses($z);
+    break;
+  case 'daily':
+    $z = new Tabel($z);
+    break;
+  default:
+    $report = 'inout';
+    $z = new dbInOut($z);
+endswitch;
+$CFG->sigur->data = $z;
 
 $formats = explode(':', 'xls:csv');
 $format = $_POST['format'];
@@ -77,8 +92,43 @@ if (!in_array($format, $formats))
 
 $t = new DateTime();
 $t = $t->format('Y-m-d-H-i-s');
-header("Content-disposition: attachment; filename=\"sigur-$t.$format\"");
-
+header("Content-disposition: attachment; filename=\"sigur-$report-$t.$format\"");
 LoadLib($format);
+
 exit();
-?>
+
+function directionName($dir)
+{
+  switch ($dir):
+    case 1:
+      return 'Выход';
+    case 2:
+      return 'Вход';
+    default:
+      return "<$dir>";
+  endswitch;
+}
+
+function storePass($row, $pass)
+{
+  switch ($pass->dir):
+    case 1:
+      $row->Выход = $pass->time;
+      $row->Откуда = $pass->gate;
+      break;
+    case 2:
+      $row->Вход = $pass->time;
+      $row->Куда = $pass->gate;
+  endswitch;
+}
+
+function emptyPass()
+{
+  $pass = null;
+  $res = (object) array();
+  for ($i = 2; $i >= 1; $i--):
+    $pass->dir = $i;
+    storePass($res, $pass);
+  endfor;
+  return $res;
+}

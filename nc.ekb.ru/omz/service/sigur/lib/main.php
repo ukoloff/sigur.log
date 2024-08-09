@@ -4,7 +4,7 @@ global $CFG;
 LoadLib('./user');
 LoadLib('h.user');
 ?>
-<form method='POST' x-target='inner'>
+<form method='POST' target='sigur'>
   <table cellspacing="0">
     <tr>
       <td align="right">

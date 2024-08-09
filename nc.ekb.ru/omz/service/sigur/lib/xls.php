@@ -23,6 +23,11 @@ header("Content-Type: application/vnd.ms-excel");
     tr {
       height: 1.23em;
     }
+    br {
+      /* https://stackoverflow.com/a/4758535 */
+      /* https://www.bennadel.com/blog/1095-maintaining-line-breaks-in-an-html-excel-file.htm */
+      mso-data-placement:same-cell;
+    }
   </style>
 </head>
 
@@ -32,16 +37,18 @@ header("Content-Type: application/vnd.ms-excel");
     $rows = 0;
     while ($row = $CFG->sigur->data->fetchObject()):
       if ($rows == 0):
-        echo "<tr><th>¹</th>\n";
-        foreach ($row as $k => $v):
+        $keys = array_keys(get_object_vars($row));
+        echo "<tr>\n";
+        foreach ($keys as $k):
           echo "<th>", htmlspecialchars($k), "</th>\n";
         endforeach;
         echo "</tr>";
       endif;
       $rows++;
-      echo "<tr><td>$rows</td>\n";
-      foreach ($row as $k => $v):
-        echo "<td>", htmlspecialchars($v), "</td>\n";
+      echo "<tr>\n";
+      foreach ($keys as $k):
+        $v = $row->$k;
+        echo "<td>", nl2br(htmlspecialchars($v)), "</td>\n";
       endforeach;
       echo "</tr>";
     endwhile;

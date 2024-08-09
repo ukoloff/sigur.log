@@ -2,8 +2,6 @@ setTimeout(function () {
   document.getElementById('/*')
     .addEventListener('click', clicker)
   updateCounts()
-  document.querySelector('fieldset:has(input[type=date]) a')
-    .onclick = dateDrop
   installDates()
 }, 100)
 
@@ -69,10 +67,6 @@ function updateCounts() {
   document.querySelector('form button[type=submit]').disabled = counts[0] == 0
   var s = document.querySelector('fieldset > legend span')
   if (s) s.innerText = counts.join('/')
-}
-
-function dateDrop(ev) {
-  ev.preventDefault()
 }
 
 function installDates() {
