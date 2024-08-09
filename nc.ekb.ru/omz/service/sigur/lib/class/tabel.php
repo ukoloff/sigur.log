@@ -14,9 +14,8 @@ class Tabel extends dbStream
     $row->Проходов = count($x);
     $kn = 'Все Проходы';
     $row->$kn = implode("\n", array_map(function ($row) {
-      return implode(' ', array_values(get_object_vars($row)));
+      return implode(' ', array($row->time, directionName($row->dir), $row->gate));
     }, $x));
     return $row;
   }
-
 }

@@ -80,3 +80,11 @@ $t = $t->format('Y-m-d-H-i-s');
 include __DIR__ . '/postproc.php';
 
 exit();
+
+function directionName($dir) {
+  switch ($dir) :
+    case 1: return 'Выход';
+    case 2: return 'Вход';
+    default: return "<$dir>";
+  endswitch;
+}
