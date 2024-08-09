@@ -48,5 +48,7 @@ class dbDate extends dbStream
       endif;
       $res->list[] = $extra;
     endwhile;
+    if ($res->list)
+      return $res;
   }
 }
