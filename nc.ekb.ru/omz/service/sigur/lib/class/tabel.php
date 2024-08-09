@@ -6,7 +6,7 @@ class Tabel extends dbStream
 {
   function fetchObject()
   {
-    $row = $this->src->fetchObject();
+    $row = $this->get();
     if (!$row)
       return;
     $x = $row->list;
