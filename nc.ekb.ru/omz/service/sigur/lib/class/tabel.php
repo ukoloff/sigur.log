@@ -11,22 +11,23 @@ class Tabel extends dbStream
       return;
     $x = $row->list;
     unset($row->list);
+
     unset($enter);
     foreach($x as $pass):
       if ($pass->dir != 2) continue;
       $enter = $pass;
       break;
     endforeach;
+    storePass($row, $enter);
+
     unset($leave);
     foreach(array_reverse($x) as $pass):
       if ($pass->dir != 1) continue;
       $leave = $pass;
       break;
     endforeach;
-    $row->Вход = $enter->time;
-    $row->Куда = $enter->gate;
-    $row->Выход = $leave->time;
-    $row->Откуда = $leave->gate;
+    storePass($row, $leave);
+
     $row->Проходов = count($x);
     $kn = 'Все Проходы';
     $row->$kn = implode("\n", array_map(function ($row) {

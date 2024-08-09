@@ -4,7 +4,7 @@ spl_autoload_register(function ($class) {
 });
 
 $z = new dbDate($s);
-$z = new dbPasses($z);
+$z = new dbInOut($z);
 
 $CFG->sigur->data = $z;
 

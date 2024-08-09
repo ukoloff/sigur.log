@@ -88,3 +88,27 @@ function directionName($dir) {
     default: return "<$dir>";
   endswitch;
 }
+
+function storePass($row, $pass)
+{
+  switch ($pass->dir):
+    case 1:
+      $row->Выход = $pass->time;
+      $row->Откуда = $pass->gate;
+      break;
+    case 2:
+      $row->Вход = $pass->time;
+      $row->Куда = $pass->gate;
+  endswitch;
+}
+
+function emptyPass()
+{
+  $pass = null;
+  $res = (object) array();
+  for ($i = 2; $i >= 1; $i--):
+    $pass->dir = $i;
+    storePass($res, $pass);
+  endfor;
+  return $res;
+}
