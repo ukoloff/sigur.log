@@ -10,7 +10,6 @@ class dbDate extends dbStream
     $id = null;
     $date = null;
     $first = 1;
-    $count = 0;
     while ($row = $this->get()):
       if ($id && ($id != $row->id || $date != $row->date)):
         $this->unget($row);
@@ -35,17 +34,13 @@ class dbDate extends dbStream
             if (!$mode):
               if ($first):
                 $res->$k = $newUser ? $v : '';
-                $count++;
               endif;
             else:
               $extra->$k = $v;
             endif;
         endswitch;
       endforeach;
-      if ($first):
-        $first = 0;
-        $this->count = $count;
-      endif;
+      $first = 0;
       $res->list[] = $extra;
     endwhile;
     if ($res->list)
