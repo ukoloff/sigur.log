@@ -10,40 +10,44 @@ class dbDate extends dbStream
     $id = null;
     $date = null;
     $first = 1;
+    $extraFields = array();
     while ($row = $this->get()):
-      if ($id && ($id != $row->id || $date != $row->date)):
+      if (!$first && ($id != $row->id || $date != $row->date)):
         $this->unget($row);
         return $res;
       endif;
       $id = $row->id;
       $date = $row->date;
 
-      $newUser = $id != $this->id;
-      $this->id = $id;
-      $mode = 0;
-      $extra = (object) array();
-      foreach ($row as $k => $v):
-        switch ($k):
-          case 'id':
-            $mode = 1;
-            if ($first)
-              $res->Дата = $date;
-          case 'date':
-            break;
-          default:
-            if (!$mode):
-              if ($first):
-                $res->$k = $newUser ? $v : '';
+      if ($first):
+        $newUser = $id != $this->id;
+        $this->id = $id;
+        $mode = 0;
+        foreach ($row as $k => $v):
+          switch ($k):
+            case 'id':
+              $mode = 1;
+            case 'date':
+              break;
+            default:
+              if ($mode):
+                $extraFields[] = $k;
+              elseif ($newUser):
+                $res->$k = $v;
               endif;
-            else:
-              $extra->$k = $v;
-            endif;
-        endswitch;
-      endforeach;
+          endswitch;
+        endforeach;
+        $res->Дата = $date;
+      endif;
       $first = 0;
+
+      $extra = (object) array();
+      foreach ($extraFields as $k):
+        $extra->$k = $row->$k;
+      endforeach;
       $res->list[] = $extra;
     endwhile;
-    if ($res->list)
+    if (!$first)
       return $res;
   }
 }

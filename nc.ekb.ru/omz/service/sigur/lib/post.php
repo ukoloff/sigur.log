@@ -70,12 +70,7 @@ spl_autoload_register(function ($class) {
   include __DIR__ . '/class/' . strtolower($class) . '.php';
 });
 
-echo "<pre>";
 $z = new dbDate($s);
-while ($row = $z->fetchObject())
-  print_r($row);
-exit();
-
 $report = $_POST['report'];
 switch ($_POST['report']):
   case 'journal':
@@ -88,7 +83,7 @@ switch ($_POST['report']):
     $report = 'inout';
     $z = new dbInOut($z);
 endswitch;
-$CFG->sigur->data = new dbDate($s);
+$CFG->sigur->data = $z;
 
 $formats = explode(':', 'xls:csv');
 $format = $_POST['format'];
