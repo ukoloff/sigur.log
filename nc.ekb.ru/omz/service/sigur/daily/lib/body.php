@@ -1,5 +1,5 @@
 <center>
-  <form action="./" method="POST">
+  <form action="./" method="POST" target="Sigur">
     <button>
       Выгрузить отчёт<br>
       за вчерашний день
