@@ -60,7 +60,50 @@ SQL
 
 header("Content-disposition: attachment; filename=\"sigur-$day.csv\"");
 
-$CFG->sigur->data = $s;
+spl_autoload_register(function ($class) {
+  include __DIR__ . '/../../lib/class/' . strtolower($class) . '.php';
+});
+
+$z = new dbDate($s);
+$z = new dbInOut($z);
+
+$CFG->sigur->data = $z;
 require __DIR__ . '/../../lib/csv.php';
 
 exit();
+
+function directionName($dir)
+{
+  switch ($dir):
+    case 1:
+      return 'Выход';
+    case 2:
+      return 'Вход';
+    default:
+      return "<$dir>";
+  endswitch;
+}
+
+function storePass($row, $pass)
+{
+  switch ($pass->dir):
+    case 1:
+      $row->Выход = $pass->time;
+      // $row->Откуда = $pass->gate;
+      break;
+    case 2:
+      $row->Вход = $pass->time;
+      // $row->Куда = $pass->gate;
+  endswitch;
+}
+
+function emptyPass()
+{
+  $pass = null;
+  $res = (object) array();
+  for ($i = 2; $i >= 1; $i--):
+    $pass->dir = $i;
+    storePass($res, $pass);
+  endfor;
+  return $res;
+}
