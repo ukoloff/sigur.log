@@ -41,6 +41,7 @@ $s = $CFG->sigur->query(
     join devices Dv on Dv.ID = DEVHINT
   where
     D.ID in ($depts)
+    and Dv.PARENT_ID = 27 -- Инженерный корпус
     and LOGTIME >= @day
     and LOGTIME < @day + interval 1 day
   order by
@@ -50,6 +51,6 @@ $s = $CFG->sigur->query(
 SQL
 );
 
-$row = $s->fetch();
+$row = $s->fetchObject();
 print_r($row);
 exit();
