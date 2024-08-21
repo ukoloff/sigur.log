@@ -1,18 +1,5 @@
-a.Q {
-  background: silver;
-  border: solid 1px black;
-  font-family: monospace;
-  text-decoration: none;
-  font-size: 70%;
-  padding: 0 0.62ex;
-}
-
-div.Q {
+details>div:last-child {
   padding-left: 2em;
-}
-
-div.Q.hide {
-  display: none;
 }
 
 div#\/\* input[type=checkbox] {

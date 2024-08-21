@@ -154,7 +154,7 @@ function renderDepts($root)
         htmlspecialchars($d->name),
         "</label></summary>\n";
       if (count($d->ch)):
-        echo '<div class="Q">';
+        echo '<div>';
         out_dept($d);
         echo "</div>";
       endif;
