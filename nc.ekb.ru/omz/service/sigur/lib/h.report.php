@@ -1,7 +1,7 @@
 <fieldset>
   <legend><small>Вид отчёта</small></legend>
   <label title="В две колонки: вход / выход">
-    <input type="radio" name="report" value="inout" checked>
+    <input type="radio" name="report" value="inout">
     Журнал входов-выходов на территорию
   </label>
   <br />
@@ -11,7 +11,7 @@
   </label>
   <br />
   <label title="Первый вход и последний выход">
-    <input type="radio" name="report" value="daily">
+    <input type="radio" name="report" value="daily" checked>
     Унифицированный отчет о рабочем времени
   </label>
 </fieldset>
