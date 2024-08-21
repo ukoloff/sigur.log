@@ -146,19 +146,19 @@ function renderDepts($root)
   {
     foreach ($dept->ch as $d):
       $collapse = !$d->expanded && count($d->ch);
-      echo '<div><a class=Q id=:', $d->id, ' href=#>', $collapse ? '+' : '-', '</a>',
-        '<label><input type=checkbox name=?', $d->id,
+      echo '<details', $collapse ? '' : ' open', '>',
+        '<summary><label><input type=checkbox name=?', $d->id,
         $d->ro ? ' disabled' : '',
         $d->checked ? ' checked' : '',
         ">\n",
         htmlspecialchars($d->name),
-        "</label>\n";
+        "</label></summary>\n";
       if (count($d->ch)):
-        echo '<div class="Q', $collapse ? ' hide' : '', '" id=/', $d->id, '>';
+        echo '<div class="Q">';
         out_dept($d);
         echo "</div>";
       endif;
-      echo "</div>";
+      echo "</details>";
     endforeach;
   }
   out_dept($root);
