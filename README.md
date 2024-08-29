@@ -47,11 +47,23 @@ Access:
 - `USER_T_SSPILOGIN` Логин через AD
 - `EXTID` = AD.`Object-Guid`
 - `USER_DEPSRESTRICTION` Ограничить доступ к отделам
+- `USER_T_REPORTS` Доступ к вкладке "Отчёты"
 
 ### Таблица `td-db-main`.`REPORTUSERDEP`
 
 Подразделения, по которым доступны отчёты
 
+- `USER_ID`
+- `EMP_ID` - оба ссылаются на `PERSONAL`.`ID`
+
 ### Таблица `tc-db-log`.`logs`
 
 Проходы и прочие события
+
+- `EMPHINT` = `PERSONAL`.`ID` пользователя
+- `DEVHINT` = `DEVICES`.`ID`
+- `LOGDATA` BLOB
+    + [1:2] = 0xFE06 проход
+    + [5]
+      * `1` Выход
+      * `2` Вход
