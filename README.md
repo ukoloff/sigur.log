@@ -35,7 +35,7 @@ Access:
 
 [sshfs]: https://github.com/libfuse/sshfs
 
-3) Add symlinks *quantum satis*
+4) Add symlinks *quantum satis*
 
 ## Схема базы данных Sigur
 
