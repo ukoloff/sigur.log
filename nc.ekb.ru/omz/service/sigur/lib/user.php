@@ -27,8 +27,10 @@ function sigur_UID($u = '')
       From
         personal
       Where
-        USER_ENABLED
-        And EXTID = ?
+        EXTID = ?
+        And USER_ENABLED
+        And USER_T_SSPILOGIN
+        And USER_T_REPORTS
 SQL
   );
   $s->execute(array($g));
