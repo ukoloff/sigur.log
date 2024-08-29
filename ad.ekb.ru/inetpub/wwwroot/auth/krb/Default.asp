@@ -22,14 +22,18 @@ function auth(ref) {
 
   var si = new ActiveXObject("ADSystemInfo")
   var key = rnd()
-  Application(key) = r2j({
+  var data = {
     auth: z('AUTH_TYPE'),
     user: z('AUTH_USER'),
     dn: si.UserName,
     ip: z('REMOTE_ADDR'),
-    ua: z('HTTP_USER_AGENT'),
-    blob: z('HTTP_AUTHORIZATION')(1).split(/\s+/, 2)[1]
-  })
+    ua: z('HTTP_USER_AGENT')
+    // blob: z('HTTP_AUTHORIZATION')(1).split(/\s+/, 2)[1]
+  }
+  var ticket = z('HTTP_AUTHORIZATION')
+  if (ticket.count == 1)
+    data.blob = ticket(1).split(/\s+/, 2)[1]
+  Application(key) = r2j(data)
   Application(':' + key) = (new Date()).getTime() + 3000
   Response.Redirect(ref + '?TiCkEt=' + key);
 }
