@@ -37,3 +37,21 @@ Access:
 
 3) Add symlinks *quantum satis*
 
+## Схема базы данных Sigur
+
+### Таблица `td-db-main`.`PERSONAL`
+
+Пользователи + Подразделения
+
+- `USER_ENABLED` Оператор
+- `USER_T_SSPILOGIN` Логин через AD
+- `EXTID` = AD.`Object-Guid`
+- `USER_DEPSRESTRICTION` Ограничить доступ к отделам
+
+### Таблица `td-db-main`.`REPORTUSERDEP`
+
+Подразделения, по которым доступны отчёты
+
+### Таблица `tc-db-log`.`logs`
+
+Проходы и прочие события
