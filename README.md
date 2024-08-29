@@ -56,6 +56,27 @@ Access:
 - `USER_ID`
 - `EMP_ID` - оба ссылаются на `PERSONAL`.`ID`
 
+### Таблица `td-db-main`.`SIDEPARAMVALUES`
+
+Дополнительные колонки
+
+- `OBJ_ID` = `PERSONAL`.`ID` пользователя
+- `TABLE_ID` = 0
+- `PARAM_IDX` = 6
+- `VALUE` Уволен
+
+### Таблица `td-db-main`.`SIDEPARAMTYPES`
+
+Описания доп. колонок
+
+|PARAM_IDX|ORDER_IDX|NAME|TYPE|
+|---------|---------|----|----|
+|1|0|id_lenel|STRING|
+|3|4|Уволен по линии СБ|BOOL|
+|4|1|Начальник отдела|BOOL|
+|5|3|Дата Увольнения|DATE|
+|6|2|Уволен|BOOL|
+
 ### Таблица `tc-db-log`.`logs`
 
 Проходы и прочие события
