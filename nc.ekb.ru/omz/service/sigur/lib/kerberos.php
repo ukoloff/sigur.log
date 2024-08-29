@@ -14,3 +14,4 @@ session_regenerate_id(1);
 $_SESSION['user'] = $Res->user;
 $_SESSION['u'] = preg_replace('/^\w+\\\/', '', $_SESSION['user']);
 $_SESSION['meth'] = 'krb';
+// $_SESSION['blob'] = $Res->blob;
