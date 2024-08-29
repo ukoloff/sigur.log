@@ -1,6 +1,6 @@
 <%@Language='JScript'%>
 <%
-Response.ContentType = 'text/json'
+Response.ContentType = 'application/json'
 Response.CodePage = 65001
 Response.CharSet = "UTF-8"
 
