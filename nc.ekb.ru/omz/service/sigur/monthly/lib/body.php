@@ -13,8 +13,21 @@ $s->execute();
 $dates = $s->fetchObject();
 $minmax = "min=$dates->min max=$dates->max";
 
-$today = date('Y-m-d')
+$today = date('Y-m-d');
+$start = date('m.Y');
+
 ?>
 <form action="post">
-  <input type="date" <?= $minmax ?> value="<?= $today ?>" required />
+  <div style="display: none;">
+    <input type="date" <?= $minmax ?> value="<?= $today ?>" required />
+  </div>
+  Месяц:
+  <span><?= $start ?></span>
+  <small>
+    <?
+    foreach (explode(',', 'Этот,Предыдущий,Выбрать') as $a):
+      echo "<a>$a</a>\n";
+    endforeach;
+    ?>
+  </small>
 </form>
