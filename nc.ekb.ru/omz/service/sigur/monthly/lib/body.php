@@ -1,0 +1,2 @@
+<?
+LoadLib('depts');
