@@ -15,9 +15,8 @@ $minmax = "min=$dates->min max=$dates->max";
 
 $today = date('Y-m-d');
 $start = date('m.Y');
-
 ?>
-<form action="post">
+<form method="post">
   <div style="display: none;">
     <input type="date" <?= $minmax ?> value="<?= $today ?>" required />
   </div>
@@ -30,4 +29,5 @@ $start = date('m.Y');
     endforeach;
     ?>
   </small>
+  <input type="submit" value="—формировать отчЄт!" />
 </form>
