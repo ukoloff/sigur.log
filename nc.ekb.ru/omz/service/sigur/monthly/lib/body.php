@@ -14,11 +14,13 @@ $dates = $s->fetchObject();
 $minmax = "min=$dates->min max=$dates->max";
 
 $today = date('Y-m-d');
+$data =  date('Y-m');
 $start = date('m.Y');
 ?>
 <form method="post">
   <div style="display: none;">
     <input type="date" <?= $minmax ?> value="<?= $today ?>" required />
+    <input type="hidden" name="ym" value="<?= $data ?>" />
   </div>
   Μερÿφ:
   <span><?= $start ?></span>
