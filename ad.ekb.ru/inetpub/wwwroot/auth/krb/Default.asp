@@ -28,7 +28,6 @@ function auth(ref) {
     dn: si.UserName,
     ip: z('REMOTE_ADDR'),
     ua: z('HTTP_USER_AGENT')
-    // blob: z('HTTP_AUTHORIZATION')(1).split(/\s+/, 2)[1]
   }
   var ticket = z('HTTP_AUTHORIZATION')
   if (ticket.count == 1)
