@@ -6,12 +6,7 @@ function jpgShrink10k($jpg, $limit = 10000)
     return $jpg;
 
   // Convert to image
-  $tmp = tempnam('/var/tmp', 'voxr');
-  $f = fopen($tmp, 'w');
-  fwrite($f, $jpg);
-  fclose($f);
-  $i = imagecreatefromjpeg($tmp);
-  unlink($tmp);
+  $i = imagecreatefromstring($jpg);
 
   $Sz[0] = imagesx($i);
   $Sz[1] = imagesy($i);
