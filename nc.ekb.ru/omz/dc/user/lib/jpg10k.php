@@ -20,8 +20,8 @@ function jpgShrink10k($jpg, $limit = 10000)
     $Nz[1 - $idx] = (int) ($Sz[1 - $idx] / $Sz[$idx] * $w);
     $j = imagecreatetruecolor($Nz[0], $Nz[1]);
     imagecopyresampled(
-      $i,
       $j,
+      $i,
       0,
       0,
       0,
@@ -47,8 +47,8 @@ function jpgShrink10k($jpg, $limit = 10000)
   $Nz[1 - $idx] = (int) ($Sz[1 - $idx] / $Sz[$idx] * $w);
   $j = imagecreatetruecolor($Nz[0], $Nz[1]);
   imagecopyresampled(
-    $i,
     $j,
+    $i,
     0,
     0,
     0,
