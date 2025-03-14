@@ -14,10 +14,8 @@ function jpgShrink10k($jpg, $limit = 10000)
 
   $a = 1;
   $z = $Sz[$idx];
-  while ($a < $z):
+  while ($a + 1 < $z):
     $w = (int)(($a + $z) / 2);
-    if ($w == $a) break;
-    // echo "<$a|$w|$z>";
     $Nz[$idx] = $w;
     $Nz[1 - $idx] = (int) ($Sz[1 - $idx] / $Sz[$idx] * $w);
     $j = imagecreatetruecolor($Nz[0], $Nz[1]);
