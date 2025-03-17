@@ -9,7 +9,7 @@ RUN <<EOF
   echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php-sury.list
   apt update
   apt install -y php5.6-cli php5.6-fpm
-  for PCK in cli fpm curl gd ldap mysql pgsql snmp sqlite3 sybase yaml
+  for PCK in cli fpm xdebug curl gd ldap mysql pgsql snmp sqlite3 sybase yaml
   do
     apt install -y php5.6-$PCK
   done
