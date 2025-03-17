@@ -13,4 +13,6 @@ RUN <<EOF
   do
     apt install -y php5.6-$PCK
   done
+  apt clean
+  rm -rf /var/lib/apt/lists/*
 EOF
