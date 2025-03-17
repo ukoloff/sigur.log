@@ -20,3 +20,5 @@ EOF
 COPY tcp.conf /etc/php/5.6/fpm/pool.d/
 
 EXPOSE 9000
+
+CMD ["/usr/sbin/php-fpm5.6", "--nodaemonize"]
