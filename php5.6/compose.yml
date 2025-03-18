@@ -1,0 +1,5 @@
+name: nc.ekb.ru
+
+services:
+  php:
+    build: php
