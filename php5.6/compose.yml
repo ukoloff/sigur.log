@@ -19,6 +19,7 @@ services:
     build: cp
     volumes:
       - src:/code
+    command: tail -f /dev/null
 
 volumes:
   src:
