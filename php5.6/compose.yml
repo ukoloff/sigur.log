@@ -1,5 +1,10 @@
-name: nc.ekb.ru
+name: nc
 
 services:
   php:
     build: php
+
+  www:
+    image: nginx:latest
+    ports:
+      - 8080:80
