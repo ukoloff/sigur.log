@@ -19,4 +19,4 @@ EOF
 
 COPY tcp.conf /etc/php/5.6/fpm/pool.d/
 
-CMD ["/usr/sbin/php-fpm5.6", "--nodaemonize"]
+CMD ["php-fpm5.6", "--nodaemonize"]
