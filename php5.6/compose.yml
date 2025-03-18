@@ -3,6 +3,8 @@ name: nc
 services:
   php:
     build: php
+    volumes:
+      - src:/code
 
   www:
     image: nginx:latest
@@ -10,3 +12,13 @@ services:
       - 8080:80
     depends_on:
       - php
+    volumes:
+      - src:/code
+
+  cp:
+    build: cp
+    volumes:
+      - src:/code
+
+volumes:
+  src:
