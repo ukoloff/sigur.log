@@ -1,3 +1,5 @@
 FROM alpine
 
 COPY code code/
+
+STOPSIGNAL SIGKILL
