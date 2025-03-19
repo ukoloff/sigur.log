@@ -19,7 +19,9 @@ services:
     build: cp
     volumes:
       - src:/code
+      - vscode:/root/.vscode-server
     command: tail -f /dev/null
 
 volumes:
   src:
+  vscode:
