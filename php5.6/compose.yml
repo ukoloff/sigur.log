@@ -15,13 +15,12 @@ services:
     volumes:
       - src:/code
 
-  cp:
-    build: cp
+  repo:
+    build: repo
     volumes:
-      - src:/code
-      - vscode:/root/.vscode-server
-    command: tail -f /dev/null
+      - repo:/repo
 
 volumes:
+  repo:
   src:
   vscode:
