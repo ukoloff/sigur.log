@@ -4,7 +4,7 @@ services:
   php:
     build: php
     volumes:
-      - src:/code
+      - repo:/repo
 
   www:
     image: nginx:latest
@@ -13,7 +13,7 @@ services:
     depends_on:
       - php
     volumes:
-      - src:/code
+      - repo:/repo
 
   repo:
     build: repo
