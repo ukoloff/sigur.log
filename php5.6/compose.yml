@@ -17,6 +17,9 @@ services:
 
   repo:
     build: repo
+    environment:
+      GIT_REPO: https://github.com/ukoloff/sigur.log.git
+      GIT_BRANCH: php5.6
     volumes:
       - repo:/repo
 
