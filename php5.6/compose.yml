@@ -22,8 +22,8 @@ services:
       GIT_BRANCH: php5.6
     volumes:
       - repo:/repo
+      - devtools:/root
 
 volumes:
   repo:
-  src:
-  vscode:
+  devtools:

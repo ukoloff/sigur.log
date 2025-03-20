@@ -1,4 +1,4 @@
-FROM alpine/git:latest
+FROM alpine/git
 
 LABEL maintainer="Stanislav.Ukolov@omzglobal.com"
 
