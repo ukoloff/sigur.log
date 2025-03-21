@@ -1,5 +1,5 @@
 {
-  "name": "PHP",
+  "name": "PHP5.6",
   "dockerComposeFile": "../php5.6/compose.yml",
   "service": "repo",
   "workspaceFolder": "/repo"
