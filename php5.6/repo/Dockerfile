@@ -1,10 +1,12 @@
-FROM alpine/git as git
-
-FROM scratch
+FROM alpine
 
 LABEL maintainer="Stanislav.Ukolov@omzglobal.com"
 
-COPY --from=git / /
+RUN <<EOF
+  apk add git
+  rm /var/cache/apk/*
+EOF
+
 COPY bin/* /bin/
 
 WORKDIR /repo
