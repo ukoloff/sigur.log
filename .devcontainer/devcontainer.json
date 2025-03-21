@@ -2,5 +2,12 @@
   "name": "PHP",
   "dockerComposeFile": "../php5.6/compose.yml",
   "service": "repo",
-  "workspaceFolder": "/repo"
+  "workspaceFolder": "/repo",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mhutchie.git-graph"
+      ]
+    }
+  }
 }
