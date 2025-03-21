@@ -12,16 +12,17 @@ services:
       - 0.0.0.0:8080:80
     depends_on:
       - php
-    volumes:
-      - repo:/repo
+    volumes_from:
+      - php
 
   repo:
     build: repo
     environment:
       GIT_REPO: https://github.com/ukoloff/sigur.log.git
       GIT_BRANCH: php5.6
-    volumes:
-      - repo:/repo
+    volumes_from:
+      - php
+    # volumes:
       # - devtools:/root
 
 volumes:
