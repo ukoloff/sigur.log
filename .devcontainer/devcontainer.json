@@ -8,6 +8,7 @@
       "extensions": [
         "mhutchie.git-graph",
         "EditorConfig.EditorConfig",
+        "DEVSENSE.phptools-vscode",
         "xdebug.php-debug"
       ]
     }
