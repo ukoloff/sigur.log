@@ -17,6 +17,4 @@ RUN <<EOF
   rm -rf /etc/php/5.6/fpm/pool.d/*
 EOF
 
-COPY tcp.conf /etc/php/5.6/fpm/pool.d/
-
 CMD ["php-fpm5.6", "--nodaemonize"]

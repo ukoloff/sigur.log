@@ -4,7 +4,15 @@ services:
   php:
     build: php
     volumes:
-      - repo:/repo
+      - repo:/repo:ro
+      - type: volume
+        source: repo
+        target: /etc/php/5.6/fpm/pool.d
+        read_only: true
+        volume:
+          subpath: php5.6/etc/php/5.6/fpm/pool.d
+    depends_on:
+      - repo
 
   www:
     image: nginx:latest
@@ -12,17 +20,16 @@ services:
       - 0.0.0.0:8080:80
     depends_on:
       - php
-    volumes_from:
-      - php
+    volumes:
+      - repo:/repo:ro
 
   repo:
     build: repo
     environment:
       GIT_REPO: https://github.com/ukoloff/sigur.log.git
       GIT_BRANCH: php5.6
-    volumes_from:
-      - php
-    # volumes:
+    volumes:
+      - repo:/repo
       # - devtools:/root
 
 volumes:
