@@ -18,10 +18,16 @@ services:
     image: nginx:latest
     ports:
       - 0.0.0.0:8080:80
-    depends_on:
-      - php
     volumes:
       - repo:/repo:ro
+      - type: volume
+        source: repo
+        target: /etc/nginx/conf.d
+        read_only: true
+        volume:
+          subpath: php5.6/etc/nginx/conf.d
+    depends_on:
+      - php
 
   repo:
     build: repo
