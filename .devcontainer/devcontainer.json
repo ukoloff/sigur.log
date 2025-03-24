@@ -3,6 +3,7 @@
   "dockerComposeFile": "../php5.6/compose.yml",
   "service": "repo",
   "workspaceFolder": "/repo",
+  "shutdownAction": "none",
   "customizations": {
     "vscode": {
       "extensions": [
