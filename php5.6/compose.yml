@@ -3,6 +3,8 @@ name: nc
 services:
   php:
     build: php
+    environment:
+      PHP_INI_SCAN_DIR: /etc/php/5.6/fpm/conf.d:/repo/php5.6/etc/php/5.6/fpm/conf.d
     volumes:
       - repo:/repo:ro
       - type: volume
