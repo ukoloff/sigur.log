@@ -14,7 +14,6 @@ RUN <<EOF
   done
   apt-get clean
   rm -rf /var/lib/apt/lists/*
-  rm -rf /etc/php/5.6/fpm/pool.d/*
 EOF
 
 CMD ["php-fpm5.6", "--nodaemonize"]
