@@ -3,6 +3,7 @@ name: nc
 services:
   php:
     build: php
+    restart: unless-stopped
     environment:
       PHP_INI_SCAN_DIR: /etc/php/5.6/fpm/conf.d:/repo/php5.6/etc/php/5.6/fpm/conf.d
     volumes:
@@ -18,6 +19,7 @@ services:
 
   www:
     image: nginx:latest
+    restart: unless-stopped
     ports:
       - 0.0.0.0:8080:80
     volumes:
@@ -33,6 +35,7 @@ services:
 
   repo:
     build: repo
+    restart: unless-stopped
     environment:
       GIT_REPO: https://github.com/ukoloff/sigur.log.git
       GIT_BRANCH: php5.6
