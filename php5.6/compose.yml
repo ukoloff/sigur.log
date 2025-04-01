@@ -5,6 +5,7 @@ services:
     build: php
     restart: unless-stopped
     environment:
+      TZ: Asia/Yekaterinburg
       PHP_INI_SCAN_DIR: /etc/php/5.6/fpm/conf.d:/repo/php5.6/etc/php/5.6/fpm/conf.d
     volumes:
       - repo:/repo:ro
@@ -20,6 +21,8 @@ services:
   www:
     image: nginx:latest
     restart: unless-stopped
+    environment:
+      TZ: Asia/Yekaterinburg
     ports:
       - 0.0.0.0:8080:80
     volumes:
