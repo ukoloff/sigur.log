@@ -17,7 +17,7 @@ volumes:
   ssh:
     driver: leviathan1776/sshfs
     driver_opts:
-      sshcmd: vasya@uxm00035.omzglobal.com:/
+      sshcmd: vasya@uxm00035.omzglobal.com:.
       allow_other: ""
       reconnect: ""
       ServerAliveInterval: 15
