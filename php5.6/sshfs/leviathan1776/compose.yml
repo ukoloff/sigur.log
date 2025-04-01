@@ -1,0 +1,11 @@
+name: leviathan1776
+
+services:
+  sh:
+    build:
+      dockerfile_inline: |
+        FROM alpine
+
+        RUN apk add mc
+    stdin_open: true
+    tty: true
