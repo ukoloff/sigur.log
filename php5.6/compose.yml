@@ -45,7 +45,19 @@ services:
     volumes:
       - repo:/repo
       # - devtools:/root
+    secrets:
+      - oops
+    configs:
+      - oops
 
 volumes:
   repo:
   devtools:
+
+secrets:
+  oops:
+    file: oops.txt
+
+configs:
+  oops:
+    file: oops.ini
