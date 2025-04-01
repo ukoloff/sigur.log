@@ -10,3 +10,8 @@ services:
     devices:
       - /dev/fuse
     command: sleep 10000
+    stop_signal: SIGKILL
+    volumes:
+      - type: bind
+        source: /root/.ssh
+        target: /root/.ssh
