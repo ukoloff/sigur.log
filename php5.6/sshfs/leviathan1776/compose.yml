@@ -9,3 +9,12 @@ services:
         RUN apk add mc
     stdin_open: true
     tty: true
+    volumes:
+    - ssh:/mnt/ssh
+
+volumes:
+  ssh:
+    driver: leviathan1776/sshfs
+    driver_opts:
+      sshcmd: vasya@uxm00035.omzglobal.com:/
+      allow_other: ""
