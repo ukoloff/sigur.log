@@ -1,23 +1,24 @@
-name: sshfs
+name: leviathan1776
 
 services:
-  test:
+  sh:
     build:
       dockerfile_inline: |
         FROM alpine
 
-        RUN <<EOF
-          apk add sshfs
-          echo sshfs vasya@uxm00035.omzglobal.com:/ /mnt > /z
-        EOF
-    devices:
-      - /dev/fuse
-    privileged: true
-    # cap_add:
-    #   - CAP_SYS_ADMIN
-    command: sleep 10000
+        RUN apk add mc
+    stdin_open: true
+    tty: true
     stop_signal: SIGKILL
     volumes:
-      - type: bind
-        source: /root/.ssh
-        target: /root/.ssh
+    - ssh:/mnt/ssh
+
+volumes:
+  ssh:
+    driver: leviathan1776/sshfs
+    driver_opts:
+      sshcmd: vasya@uxm00035.omzglobal.com:.
+      allow_other: ""
+      reconnect: ""
+      ServerAliveInterval: 15
+      ServerAliveCountMax: 3
