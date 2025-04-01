@@ -1,0 +1,12 @@
+name: sshfs
+
+services:
+  test:
+    build:
+      dockerfile_inline: |
+        FROM alpine
+
+        RUN apk add sshfs
+    devices:
+      - /dev/fuse
+    command: sleep 10000
