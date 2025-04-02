@@ -1,3 +1,9 @@
-<h1>?</h1>
-<?php
-phpinfo();
+<h1>/omz</h1>
+<details>
+  <summary>
+    PHP Info
+  </summary>
+  <?php
+  phpinfo();
+  ?>
+</details>
