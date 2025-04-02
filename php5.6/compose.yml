@@ -45,10 +45,11 @@ services:
     volumes:
       - repo:/repo
       # - devtools:/root
-    secrets:
-      - oops
-    configs:
-      - oops
+    # Only for local docker:
+    # secrets:
+    #   - oops
+    # configs:
+    #   - oops
 
 volumes:
   repo:
@@ -56,8 +57,8 @@ volumes:
 
 secrets:
   oops:
-    file: oops.txt
+    file: oops/oops.txt
 
 configs:
   oops:
-    file: oops.ini
+    file: oops/oops.ini
